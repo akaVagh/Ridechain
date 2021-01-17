@@ -10,9 +10,9 @@ const DestinationSearch = (props) => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        console.warn('useEffect is called');
+        //console.warn('useEffect is called');
         if (originPlace && destinationPlace) {
-            console.warn('Redirect to results');
+            //console.warn('Redirect to results');
         }
     }, [originPlace, destinationPlace]);
 
