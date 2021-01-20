@@ -6,7 +6,8 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 // import HomeScreen from './src/Screens/HomeScreen';
 // import SearchResults from './src/Screens/SearchResults';
 import Router from './src/Navigation/Router';
-
+import Drawer from './src/Navigation/DrawerScreen';
+import { NavigationContainer } from '@react-navigation/native';
 export default function App() {
     return (
         // <SafeAreaView style={styles.droidSafeArea}>
@@ -20,7 +21,9 @@ export default function App() {
         <>
             <SafeAreaView style={styles.droidSafeArea}>
                 <StatusBar style='auto' />
-                <Router />
+                <NavigationContainer>
+                    <Drawer />
+                </NavigationContainer>
             </SafeAreaView>
         </>
     );
