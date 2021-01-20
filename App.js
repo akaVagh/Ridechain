@@ -21,9 +21,7 @@ export default function App() {
         <>
             <SafeAreaView style={styles.droidSafeArea}>
                 <StatusBar style='auto' />
-                <NavigationContainer>
-                    <Drawer />
-                </NavigationContainer>
+                <Drawer />
             </SafeAreaView>
         </>
     );

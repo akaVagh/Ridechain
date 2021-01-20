@@ -10,7 +10,7 @@ const CabTypes = (props) => {
     return (
         <View>
             {typesData.map((type) => (
-                <CabTypeRow type={type} />
+                <CabTypeRow type={type} key={type.id} />
             ))}
             <Pressable
                 onPress={confirm}

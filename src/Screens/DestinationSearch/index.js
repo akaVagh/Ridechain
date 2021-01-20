@@ -1,46 +1,98 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Pressable, FlatList, Text } from 'react-native';
 import styles from './styles';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import SearchMap from '../../Components/SearchMap';
+
+import DATA from '../../assets/data/types';
+import { Fontisto } from '@expo/vector-icons';
+const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
 const DestinationSearch = (props) => {
-    const [originPlace, setOriginPlace] = useState(null);
-    const [destinationPlace, setDestinationPlace] = useState(null);
+    const [originPlace, setOriginPlace] = useState([]);
+    const [destinationPlace, setDestinationPlace] = useState([]);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        //console.warn('useEffect is called');
-        if (originPlace && destinationPlace) {
-            //console.warn('Redirect to results');
-        }
-    }, [originPlace, destinationPlace]);
+    const getOrigin = (id, key) => {
+        fetch(
+            `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
+        )
+            .then((response) => response.json())
+            .then((originPlace) =>
+                setOriginPlace(originPlace.result.geometry.location)
+            );
+    };
+    const getDestination = (id, key) => {
+        fetch(
+            `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
+        )
+            .then((response) => response.json())
+            .then((destinationPlace) =>
+                setDestinationPlace(destinationPlace.result.geometry.location)
+            );
+    };
 
+    console.log(originPlace);
+    console.log(destinationPlace);
     return (
-        <View style={styles.container}>
-            <GooglePlacesAutocomplete
-                placeholder='Where from?'
-                // onPress={(data, details = null) => {
-                //     setOriginPlace({ data, details });
-                //  }}
-                styles={{ textInput: styles.inpTxt }}
-                query={{
-                    key: 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q',
-                    language: 'en',
-                }}
-            />
-            <GooglePlacesAutocomplete
-                placeholder='Where to?'
-                // onPress={(data, details = null) => {
-                //     setDestinationPlace({ data, details });
-                // }}
-                onPress={() => navigation.navigate('Search Results')}
-                styles={{ textInput: styles.inpTxt }}
-                query={{
-                    key: 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q',
-                    language: 'en',
-                }}
-            />
+        <View>
+            <View style={styles.container}>
+                <View style={styles.backBtn}>
+                    <Pressable
+                        onPress={() => navigation.navigate('Home Screen')}
+                    >
+                        <Ionicons name='arrow-back' size={30} color='black' />
+                    </Pressable>
+                </View>
+                <GooglePlacesAutocomplete
+                    placeholder='Where from?'
+                    onPress={(data, details = null) => {
+                        getOrigin(data.place_id, GOOGLE_API);
+                    }}
+                    styles={{
+                        textInput: styles.inpTxt,
+                    }}
+                    query={{
+                        key: GOOGLE_API,
+                        language: 'en',
+                    }}
+                />
+                <GooglePlacesAutocomplete
+                    placeholder='Where to?'
+                    onPress={(data, details = null) => {
+                        getDestination(data.place_id, GOOGLE_API),
+                            navigation.navigate('Search Results');
+                    }}
+                    styles={{ textInput: styles.inpTxt }}
+                    query={{
+                        key: GOOGLE_API,
+                        language: 'en',
+                    }}
+                />
+            </View>
+
+            {/* <View style={styles.mapContainer}>
+                <FlatList
+                    data={DATA}
+                    renderItem={({ item }) => (
+                        <View style={styles.listContainer}>
+                            <View style={styles.iconContainer}>
+                                <MaterialIcons
+                                    name='location-pin'
+                                    size={25}
+                                    color='white'
+                                />
+                            </View>
+                            <Text style={styles.listText}>{item.type}</Text>
+                        </View>
+                    )}
+                />
+            </View> */}
+            <View style={styles.mapContainer}>
+                <SearchMap />
+            </View>
         </View>
     );
 };

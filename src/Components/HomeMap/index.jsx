@@ -16,7 +16,7 @@ const HomeMap = (props) => {
         <MapView
             style={{ width: '100%', height: '100%' }}
             provider={PROVIDER_GOOGLE}
-            customMapStyle={require('./mapStyle.json')}
+            customMapStyle={require('../../assets/mapStyle.json')}
             initialRegion={{
                 latitude: 21.209934,
                 longitude: 72.873976,
