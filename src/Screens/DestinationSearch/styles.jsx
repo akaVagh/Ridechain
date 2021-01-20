@@ -26,18 +26,27 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         flexDirection: 'row',
-        padding: 15,
+        //padding: 5,
         alignItems: 'center',
         borderBottomWidth: 1,
         borderColor: '#dbdbdb',
     },
-    listText: {
+    listNames: {
+        flexDirection: 'column',
+        padding: 5,
+    },
+    primaryText: {
+        fontSize: 15,
         marginLeft: 10,
         padding: 5,
-        fontSize: 18,
+    },
+    secondaryText: {
+        marginLeft: 10,
+        padding: 5,
+        fontSize: 12,
     },
     iconContainer: {
-        marginLeft: 5,
+        marginLeft: 20,
         backgroundColor: '#b3b3b3',
         padding: 5,
         borderRadius: 25,
