@@ -39,7 +39,6 @@ const SearchMap = (props) => {
                 customMapStyle={require('../../assets/mapStyle.json')}
                 initialRegion={region}
                 onRegionChangeComplete={onChangeValue}
-                showsMyLocationButton={true}
                 showsUserLocation={true}
                 ref={(position) => position}
             />

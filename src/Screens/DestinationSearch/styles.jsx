@@ -39,11 +39,13 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 10,
         padding: 5,
+        fontWeight: '600',
     },
     secondaryText: {
         marginLeft: 10,
         padding: 5,
-        fontSize: 12,
+        fontSize: 13,
+        color: '#666',
     },
     iconContainer: {
         marginLeft: 20,

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Pressable, FlatList, Text, TextInput } from 'react-native';
 import styles from './styles';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import SearchMap from '../../Components/SearchMap';
-
-import DATA from '../../assets/data/types';
 const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
 const DestinationSearch = () => {
@@ -17,19 +14,25 @@ const DestinationSearch = () => {
     const navigation = useNavigation();
     const [searchInputFrom, setsearchInputFrom] = useState('');
     const [searchInputTo, setsearchInputTo] = useState('');
-    const [toggleSearch, settoggleSearch] = useState(false);
-    console.log(toggleSearch);
+    const [toggleSearchFrom, settoggleSearchFrom] = useState(false);
+    const [toggleSearchTo, settoggleSearchTo] = useState(false);
 
-    const setToggleTrue = () => {
-        settoggleSearch(true);
+    const setToggleFromTrue = () => {
+        settoggleSearchFrom(true);
     };
-    const setToggleFalse = () => {
-        settoggleSearch(false);
+    const setToggleFromFalse = () => {
+        settoggleSearchFrom(false);
     };
-
     const getInputFrom = (searchInputFrom) => {
         setsearchInputFrom(searchInputFrom);
         console.log(searchInputFrom);
+    };
+
+    const setToggleToTrue = () => {
+        settoggleSearchTo(true);
+    };
+    const setToggleToFalse = () => {
+        settoggleSearchTo(false);
     };
     const getInputTo = (searchInputTo) => {
         setsearchInputTo(searchInputTo);
@@ -53,9 +56,9 @@ const DestinationSearch = () => {
         )
             .then((response) => response.json())
             .then((destinationPrediction) =>
-                setdestinationPrediction(destinationPrediction)
+                setdestinationPrediction(destinationPrediction.predictions)
             );
-        console.log(destinationPrediction);
+        console.log('From to?:--', destinationPrediction);
     };
 
     const getOrigin = (id, key) => {
@@ -95,22 +98,56 @@ const DestinationSearch = () => {
                         onTextInput={() =>
                             getOriginPediction(searchInputFrom, GOOGLE_API)
                         }
-                        onFocus={setToggleTrue}
-                        onBlur={setToggleFalse}
+                        onFocus={setToggleFromTrue}
+                        onBlur={setToggleFromFalse}
                     />
                     <TextInput
                         style={styles.inpTxt}
                         placeholder='Where To?'
                         onChangeText={getInputTo}
-                        onFocus={setToggleTrue}
-                        onBlur={setToggleFalse}
+                        onTextInput={() =>
+                            getDestinationPediction(searchInputTo, GOOGLE_API)
+                        }
+                        onFocus={setToggleToTrue}
+                        onBlur={setToggleToFalse}
                     />
                 </View>
             </View>
-            {toggleSearch === true && (
+            {toggleSearchFrom === true && (
                 <View style={styles.mapContainer}>
                     <FlatList
                         data={originPrediction}
+                        keyExtractor={(item) => item.place_id}
+                        renderItem={({ item }) => (
+                            <View style={styles.listContainer}>
+                                <View style={styles.iconContainer}>
+                                    <MaterialIcons
+                                        name='location-pin'
+                                        size={25}
+                                        color='white'
+                                    />
+                                </View>
+                                <View style={styles.listNames}>
+                                    <Text style={styles.primaryText}>
+                                        {item.structured_formatting.main_text}
+                                    </Text>
+                                    <Text style={styles.secondaryText}>
+                                        {
+                                            item.structured_formatting
+                                                .secondary_text
+                                        }
+                                    </Text>
+                                </View>
+                            </View>
+                        )}
+                    />
+                </View>
+            )}
+            {toggleSearchTo === true && (
+                <View style={styles.mapContainer}>
+                    <FlatList
+                        data={destinationPrediction}
+                        keyExtractor={(item) => item.place_id}
                         renderItem={({ item }) => (
                             <View style={styles.listContainer}>
                                 <View style={styles.iconContainer}>
