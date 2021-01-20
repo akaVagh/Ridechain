@@ -10,10 +10,22 @@ import DATA from '../../assets/data/types';
 import { Fontisto } from '@expo/vector-icons';
 const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
-const DestinationSearch = (props) => {
+const DestinationSearch = () => {
     const [originPlace, setOriginPlace] = useState([]);
+    const [originPrediction, setoriginPrediction] = useState([]);
     const [destinationPlace, setDestinationPlace] = useState([]);
+    const [destinationPrediction, setdestinationPrediction] = useState([]);
     const navigation = useNavigation();
+    const [searchInput, setsearchInput] = useState({ input: '' });
+
+    const getInputFrom = (searchInput) => {
+        const key = '';
+        setsearchInput({
+            input: searchInput,
+        });
+        // console.log('------Input---------------');
+        console.log(searchInput);
+    };
 
     const getOrigin = (id, key) => {
         fetch(
@@ -48,8 +60,12 @@ const DestinationSearch = (props) => {
                 </View>
                 <GooglePlacesAutocomplete
                     placeholder='Where from?'
-                    onPress={(data, details = null) => {
+                    onPress={(data = null) => {
+                        console.log(data);
                         getOrigin(data.place_id, GOOGLE_API);
+                    }}
+                    textInputProps={{
+                        onChangeText: getInputFrom,
                     }}
                     styles={{
                         textInput: styles.inpTxt,
