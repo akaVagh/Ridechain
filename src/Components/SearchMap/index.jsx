@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Image, View, Pressable } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from './styles';
 const SearchMap = (props) => {
     const [region, setRegion] = useState({
-        latitude: 21.209934,
-        longitude: 72.873976,
         latitudeDelta: 0.0222,
         longitudeDelta: 0.0121,
+        latitude: 21.209934,
+        longitude: 72.873976,
     });
+
+    const mapRef = useRef(null);
+
     console.log(region);
     const onChangeValue = (region) => {
         setRegion(region);
@@ -22,14 +24,20 @@ const SearchMap = (props) => {
 
     const userCurrentLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
-            alert(JSON.stringify(pos));
+            mapRef.current.animateToRegion({
+                ...region,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            });
+
             setRegion({
-                initialRegion,
+                ...region,
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             });
         });
     };
+    //alert(JSON.stringify(region));
 
     return (
         <View>
@@ -40,7 +48,8 @@ const SearchMap = (props) => {
                 initialRegion={region}
                 onRegionChangeComplete={onChangeValue}
                 showsUserLocation={true}
-                ref={(position) => position}
+                showsMyLocationButton={false}
+                ref={mapRef}
             />
             <View style={styles.icon}>
                 <Image
@@ -49,7 +58,9 @@ const SearchMap = (props) => {
                 />
             </View>
             <View style={styles.position}>
-                <MaterialIcons name='my-location' size={30} color='black' />
+                <Pressable onPress={userCurrentLocation}>
+                    <MaterialIcons name='my-location' size={30} color='black' />
+                </Pressable>
             </View>
         </View>
     );

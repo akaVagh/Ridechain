@@ -9,12 +9,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 5,
+        width: '100%',
         flexDirection: 'column',
         padding: 10,
         backgroundColor: '#fff',
         height: 160,
-        //TODO: Change height 160
         justifyContent: 'space-between',
+        position: 'absolute',
     },
     inpTxt: {
         padding: 10,

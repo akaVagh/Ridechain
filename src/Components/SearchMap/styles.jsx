@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        top: '25%',
-        left: '45%',
+        top: '45%',
+        left: '44%',
         position: 'absolute',
     },
     position: {
         position: 'absolute',
-        top: '45%',
+        top: '75%',
         right: '5%',
         backgroundColor: '#fff',
         borderRadius: 30,

@@ -12,7 +12,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
     },
-    text: { color: '#e2e2e2', fontSize: 15, marginBottom: 10 },
+    text: {
+        color: '#e2e2e2',
+        fontSize: 15,
+        marginBottom: 10,
+        flexWrap: 'wrap',
+    },
     lernmore: { color: 'white', fontSize: 15, fontWeight: 'bold' },
 });
 

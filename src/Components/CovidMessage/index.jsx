@@ -6,11 +6,9 @@ const CovidMessage = (props) => {
         <View style={styles.container}>
             <Text style={styles.title}>Travel only if necessary</Text>
             <Text style={styles.text}>
-                Laboris nulla non amet eiusmod sit dolore commodo aute dolor
-                consequat adipisicing tempor. Et enim adipisicing enim ea
-                excepteur anim. Ut cillum officia tempor non labore. Sit sit ut
-                consequat id cillum qui enim. Laboris aliquip veniam enim irure
-                dolor elit.
+                {'\u2023 '}Please wear mask if you want to use our service!{' '}
+                {'\n'}
+                {'\u2023 '}Clean your hands often.
             </Text>
             <Text style={styles.lernmore}>Learn More</Text>
         </View>
