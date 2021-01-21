@@ -53,7 +53,7 @@ const SearchMap = (props) => {
             />
             <View style={styles.icon}>
                 <Image
-                    style={{ height: 50, width: 50, resizeMode: 'contain' }}
+                    style={{ height: 40, width: 40, resizeMode: 'contain' }}
                     source={require('../../assets/images/map-pin.png')}
                 />
             </View>

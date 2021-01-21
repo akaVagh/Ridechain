@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        top: '45%',
-        left: '44%',
+        top: '44%',
+        left: '44.5%',
         position: 'absolute',
     },
     position: {
