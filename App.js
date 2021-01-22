@@ -7,7 +7,9 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 // import SearchResults from './src/Screens/SearchResults';
 import Router from './src/Navigation/Router';
 import Drawer from './src/Navigation/DrawerScreen';
+import RootStack from './src/Navigation/RootStack';
 import { NavigationContainer } from '@react-navigation/native';
+import SplashScreen from './src/Screens/SplashScreen';
 export default function App() {
     return (
         // <SafeAreaView style={styles.droidSafeArea}>
@@ -21,9 +23,8 @@ export default function App() {
         <>
             <SafeAreaView style={styles.droidSafeArea}>
                 <StatusBar style='auto' />
-                <NavigationContainer>
-                    <Drawer />
-                </NavigationContainer>
+                {/* <Drawer /> */}
+                <RootStack />
             </SafeAreaView>
         </>
     );
