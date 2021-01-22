@@ -32,7 +32,6 @@ const DestinationSearch = () => {
     };
     const getInputFrom = (searchInputFrom) => {
         setsearchInputFrom(searchInputFrom);
-        console.log(searchInputFrom);
     };
 
     const setToggleToTrue = () => {
@@ -43,7 +42,6 @@ const DestinationSearch = () => {
     };
     const getInputTo = (searchInputTo) => {
         setsearchInputTo(searchInputTo);
-        console.log(searchInputTo);
     };
 
     const getOriginPediction = (input, key) => {
@@ -54,7 +52,6 @@ const DestinationSearch = () => {
             .then((originPrediction) =>
                 setoriginPrediction(originPrediction.predictions)
             );
-        console.log('From where?:--', originPrediction);
     };
 
     const getDestinationPediction = (input, key) => {
@@ -65,7 +62,6 @@ const DestinationSearch = () => {
             .then((destinationPrediction) =>
                 setdestinationPrediction(destinationPrediction.predictions)
             );
-        console.log('From to?:--', destinationPrediction);
     };
 
     const getOrigin = (id, key) => {
@@ -77,6 +73,7 @@ const DestinationSearch = () => {
                 setOriginPlace(originPlace.result.geometry.location)
             );
     };
+
     const getDestination = (id, key) => {
         fetch(
             `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
@@ -87,13 +84,13 @@ const DestinationSearch = () => {
             );
     };
 
-    console.log(originPlace);
-    console.log(destinationPlace);
     return (
         <View>
             <View style={styles.container}>
                 <View style={styles.backBtn}>
-                    <Pressable>
+                    <Pressable
+                        onPress={() => navigation.navigate('Home Screen')}
+                    >
                         <Ionicons name='arrow-back' size={30} color='black' />
                     </Pressable>
                     <TextInput
@@ -104,8 +101,8 @@ const DestinationSearch = () => {
                             getOriginPediction(searchInputFrom, GOOGLE_API)
                         }
                         onChange={setToggleFromTrue}
-                        onFocus={setToggleFromTrue}
-                        onBlur={setToggleFromFalse}
+                        onFocus={setToggleToFalse}
+                        //onBlur={setToggleFromFalse}
                     />
                     <TextInput
                         style={styles.inpTxt}
@@ -115,13 +112,13 @@ const DestinationSearch = () => {
                             getDestinationPediction(searchInputTo, GOOGLE_API)
                         }
                         onChange={setToggleToTrue}
-                        onFocus={setToggleToTrue}
-                        onBlur={setToggleToFalse}
+                        onFocus={setToggleFromFalse}
+                        //onBlur={setToggleToFalse}
                     />
                 </View>
             </View>
 
-            {toggleSearchFrom === true && (
+            {toggleSearchFrom === true && toggleSearchTo == false && (
                 <View style={styles.listWindow}>
                     <TouchableOpacity
                         style={styles.inputBox}
@@ -138,9 +135,10 @@ const DestinationSearch = () => {
                             <View>
                                 <TouchableOpacity
                                     style={styles.inputBox}
-                                    onPress={() =>
-                                        navigation.navigate('Search Results')
-                                    }
+                                    onPress={() => {
+                                        //navigation.navigate('Search Results');
+                                        getOrigin(item.place_id, GOOGLE_API);
+                                    }}
                                 >
                                     <View style={styles.listContainer}>
                                         <View style={styles.iconContainer}>
@@ -187,12 +185,18 @@ const DestinationSearch = () => {
                         keyExtractor={(item) => item.place_id}
                         renderItem={({ item }) => (
                             <View>
-                                <View></View>
                                 <TouchableOpacity
                                     style={styles.inputBox}
-                                    onPress={() =>
-                                        navigation.navigate('Search Results')
-                                    }
+                                    onPress={() => {
+                                        getDestination(
+                                            item.place_id,
+                                            GOOGLE_API
+                                        );
+                                        navigation.navigate('Search Results', {
+                                            originPlace,
+                                            destinationPlace,
+                                        });
+                                    }}
                                 >
                                     <View style={styles.listContainer}>
                                         <View style={styles.iconContainer}>

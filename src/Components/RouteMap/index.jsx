@@ -1,17 +1,19 @@
 import React from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import DestinationSearch from '../../Screens/DestinationSearch';
 
 const RouteMap = (props) => {
     const GOOGLE_MAPS_APIKEY = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
     const origin = {
-        latitude: 21.225296,
-        longitude: 72.892987,
+        latitude: props.origin.lat,
+        longitude: props.origin.lng,
     };
     const destination = {
-        latitude: 21.222576,
-        longitude: 72.837412,
+        latitude: props.destination.lat,
+        longitude: props.destination.lng,
     };
+    console.log(props);
     return (
         <MapView
             style={{ width: '100%', height: '100%' }}

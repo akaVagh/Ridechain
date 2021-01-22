@@ -13,7 +13,7 @@ const SearchMap = (props) => {
 
     const mapRef = useRef(null);
 
-    console.log(region);
+    //console.log(region);
     const onChangeValue = (region) => {
         setRegion(region);
         // alert(JSON.stringify(region));
