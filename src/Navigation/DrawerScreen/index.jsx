@@ -6,18 +6,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import MessageScreen from '../../Screens/MessageScreen';
 import SettingScreen from '../../Screens/SettingScreen';
 import Router from '../Router';
+import DrawerContent from './DrawerContent';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNav = (props) => {
     return (
-        <NavigationContainer>
-            <Drawer.Navigator initialRouteName='Home'>
-                <Drawer.Screen name='Home' component={Router} />
-                <Drawer.Screen name='Message' component={MessageScreen} />
-                <Drawer.Screen name='Setting' component={SettingScreen} />
-            </Drawer.Navigator>
-        </NavigationContainer>
+        <Drawer.Navigator
+            initialRouteName='Home'
+            drawerContent={(pops) => <DrawerContent {...pops} />}
+        >
+            <Drawer.Screen name='Home' component={Router} />
+            <Drawer.Screen name='Message' component={MessageScreen} />
+            <Drawer.Screen name='Setting' component={SettingScreen} />
+        </Drawer.Navigator>
     );
 };
 export default DrawerNav;
