@@ -106,11 +106,11 @@ const SignInScreen = ({ navigation }) => {
                                 color: '#000',
                             },
                         ]}
-                        // autoCapitalize='none'
+                        autoCapitalize='none'
                         onChangeText={(val) => textInputChange(val)}
-                        // onEndEditing={(e) =>
-                        //     handleValidNumber(e.nativeEvent.text)
-                        // }
+                        onEndEditing={(e) =>
+                            handleValidNumber(e.nativeEvent.text)
+                        }
                     />
                     {data.check_textInputChange ? (
                         <Animatable.View animation='bounceIn'>
@@ -122,6 +122,13 @@ const SignInScreen = ({ navigation }) => {
                         </Animatable.View>
                     ) : null}
                 </View>
+                {data.isValidUser ? null : (
+                    <Animatable.View animation='fadeInLeft' duration={500}>
+                        <Text style={styles.errorMsg}>
+                            Enter 10 digit mobile number.
+                        </Text>
+                    </Animatable.View>
+                )}
                 <Text
                     style={[
                         styles.text_footer,
@@ -146,19 +153,13 @@ const SignInScreen = ({ navigation }) => {
                                 color: '#000',
                             },
                         ]}
-                        // autoCapitalize='none'
-                        // onChangeText={(val) => textInputChange(val)}
-                        // onEndEditing={(e) =>
-                        //     handleValidNumber(e.nativeEvent.text)
-                        // }
+                        autoCapitalize='none'
+                        onChangeText={(val) => textInputChange(val)}
+                        onEndEditing={(e) =>
+                            handleValidNumber(e.nativeEvent.text)
+                        }
                     />
-                    {data.isValidUser ? null : (
-                        <Animatable.View animation='fadeInLeft' duration={500}>
-                            <Text style={styles.errorMsg}>
-                                Enter 10 digit mobile number.
-                            </Text>
-                        </Animatable.View>
-                    )}
+
                     <TouchableOpacity onPress={updateSecureTextEntry}>
                         {data.secureTextEntry ? (
                             <Feather name='eye-off' color='grey' size={20} />

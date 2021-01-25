@@ -13,15 +13,15 @@ const RouteMap = (props) => {
         latitude: props.destination.lat,
         longitude: props.destination.lng,
     };
-    console.log(props);
+    console.log('route::', props);
     return (
         <MapView
             style={{ width: '100%', height: '100%' }}
             provider={PROVIDER_GOOGLE}
             customMapStyle={require('../../assets/mapStyle.json')}
             initialRegion={{
-                latitude: 21.225296,
-                longitude: 72.892987,
+                latitude: origin.latitude,
+                longitude: origin.longitude,
                 latitudeDelta: 0.0222,
                 longitudeDelta: 0.0121,
             }}
@@ -33,8 +33,20 @@ const RouteMap = (props) => {
                 strokeWidth={5}
                 strokeColor='black'
             />
-            <Marker coordinate={origin} title={'Origin'} />
-            <Marker coordinate={destination} title={'Destination'} />
+            <Marker
+                coordinate={{
+                    latitude: props.origin.lat,
+                    longitude: props.origin.lng,
+                }}
+                title={'Origin'}
+            />
+            <Marker
+                coordinate={{
+                    latitude: props.destination.lat,
+                    longitude: props.destination.lng,
+                }}
+                title={'Destination'}
+            />
         </MapView>
     );
 };

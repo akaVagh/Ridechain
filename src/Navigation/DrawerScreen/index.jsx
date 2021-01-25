@@ -12,14 +12,16 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNav = (props) => {
     return (
-        <Drawer.Navigator
-            initialRouteName='Home'
-            drawerContent={(pops) => <DrawerContent {...pops} />}
-        >
-            <Drawer.Screen name='Home' component={Router} />
-            <Drawer.Screen name='Message' component={MessageScreen} />
-            <Drawer.Screen name='Setting' component={SettingScreen} />
-        </Drawer.Navigator>
+        <NavigationContainer>
+            <Drawer.Navigator
+                initialRouteName='Home'
+                drawerContent={(pops) => <DrawerContent {...pops} />}
+            >
+                <Drawer.Screen name='Home' component={Router} />
+                <Drawer.Screen name='Message' component={MessageScreen} />
+                <Drawer.Screen name='Setting' component={SettingScreen} />
+            </Drawer.Navigator>
+        </NavigationContainer>
     );
 };
 export default DrawerNav;

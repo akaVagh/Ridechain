@@ -23,12 +23,19 @@ const DestinationSearch = () => {
     const [searchInputTo, setsearchInputTo] = useState('');
     const [toggleSearchFrom, settoggleSearchFrom] = useState(false);
     const [toggleSearchTo, settoggleSearchTo] = useState(false);
+    const [toggleButton, settoggleButton] = useState(false);
+    const nextInp = useRef();
+    const buttonRef = useRef();
 
+    // console.log('origin', originPlace);
     const setToggleFromTrue = () => {
         settoggleSearchFrom(true);
     };
     const setToggleFromFalse = () => {
         settoggleSearchFrom(false);
+    };
+    const setToggleButtonTrue = () => {
+        settoggleButton(true);
     };
     const getInputFrom = (searchInputFrom) => {
         setsearchInputFrom(searchInputFrom);
@@ -43,6 +50,15 @@ const DestinationSearch = () => {
     const getInputTo = (searchInputTo) => {
         setsearchInputTo(searchInputTo);
     };
+
+    // const gotoResults = async (item) => {
+    //     await getDestination(item.place_id, GOOGLE_API);
+    //     navigation.navigate('Search Results', {
+    //         originPlace,
+    //         destinationPlace,
+    //     });
+    //     console.log('origin', originPlace, 'dest', destinationPlace);
+    // };
 
     const getOriginPediction = (input, key) => {
         fetch(
@@ -84,6 +100,9 @@ const DestinationSearch = () => {
             );
     };
 
+    console.log('O-----', originPlace);
+    console.log('D-----', destinationPlace);
+
     return (
         <View>
             <View style={styles.container}>
@@ -108,6 +127,7 @@ const DestinationSearch = () => {
                         style={styles.inpTxt}
                         placeholder='Where To?'
                         onChangeText={getInputTo}
+                        ref={nextInp}
                         onTextInput={() =>
                             getDestinationPediction(searchInputTo, GOOGLE_API)
                         }
@@ -135,10 +155,11 @@ const DestinationSearch = () => {
                             <View>
                                 <TouchableOpacity
                                     style={styles.inputBox}
-                                    onPress={() => {
+                                    onPressIn={() => {
                                         //navigation.navigate('Search Results');
                                         getOrigin(item.place_id, GOOGLE_API);
                                     }}
+                                    onPressOut={() => nextInp.current.focus()}
                                 >
                                     <View style={styles.listContainer}>
                                         <View style={styles.iconContainer}>
@@ -188,15 +209,25 @@ const DestinationSearch = () => {
                                 <TouchableOpacity
                                     style={styles.inputBox}
                                     onPress={() => {
+                                        setToggleToFalse();
+                                        settoggleButton();
+                                    }}
+                                    // onPress={() =>
+                                    //     // navigation.navigate('Search Results', {
+                                    //     //     originPlace,
+                                    //     //     destinationPlace,
+                                    //     //})
+                                    //     {
+                                    //         setToggleToFalse,
+                                    //             setToggleButtonTrue;
+                                    //     }
+                                    // }
+                                    onPressIn={() =>
                                         getDestination(
                                             item.place_id,
                                             GOOGLE_API
-                                        );
-                                        navigation.navigate('Search Results', {
-                                            originPlace,
-                                            destinationPlace,
-                                        });
-                                    }}
+                                        )
+                                    }
                                 >
                                     <View style={styles.listContainer}>
                                         <View style={styles.iconContainer}>
@@ -229,6 +260,19 @@ const DestinationSearch = () => {
             )}
             <View style={styles.mapContainer}>
                 <SearchMap />
+            </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button}>
+                    <Text
+                        style={{
+                            color: '#fff',
+                            fontSize: 18,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Find Ride
+                    </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

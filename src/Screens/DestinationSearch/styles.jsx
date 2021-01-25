@@ -65,6 +65,25 @@ const styles = StyleSheet.create({
     mapContainer: {
         marginBottom: 300,
     },
+    buttonContainer: {
+        position: 'absolute',
+        top: 600,
+        width: '100%',
+        padding: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        width: '60%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 25,
+        borderColor: '#000',
+        borderWidth: 1,
+        marginTop: 15,
+        backgroundColor: '#000',
+    },
     droidSafeArea: {
         paddingTop: Platform.OS === 'android' ? 24 : 0,
     },
