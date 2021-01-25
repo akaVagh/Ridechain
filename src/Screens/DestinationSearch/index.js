@@ -78,6 +78,7 @@ const DestinationSearch = () => {
             .then((destinationPrediction) =>
                 setdestinationPrediction(destinationPrediction.predictions)
             );
+        console.log('Harsh', destinationPrediction.description);
     };
 
     const getOrigin = (id, key) => {
@@ -213,10 +214,10 @@ const DestinationSearch = () => {
                                         settoggleButton();
                                     }}
                                     // onPress={() =>
-                                    //     // navigation.navigate('Search Results', {
-                                    //     //     originPlace,
-                                    //     //     destinationPlace,
-                                    //     //})
+                                    //     navigation.navigate('Search Results', {
+                                    //         originPlace,
+                                    //         destinationPlace,
+                                    //     })
                                     //     {
                                     //         setToggleToFalse,
                                     //             setToggleButtonTrue;
@@ -262,7 +263,15 @@ const DestinationSearch = () => {
                 <SearchMap />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() =>
+                        navigation.navigate('Search Results', {
+                            originPlace,
+                            destinationPlace,
+                        })
+                    }
+                >
                     <Text
                         style={{
                             color: '#fff',
