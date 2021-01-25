@@ -18,15 +18,23 @@ const DestinationSearch = () => {
     const [originPrediction, setoriginPrediction] = useState([]);
     const [destinationPrediction, setdestinationPrediction] = useState([]);
     const [destinationPlace, setDestinationPlace] = useState([]);
+    const [textInputValue, settextInputValue] = useState({
+        inputFrom: '',
+        inputTo: '',
+    });
+
     const navigation = useNavigation();
     const [searchInputFrom, setsearchInputFrom] = useState('');
     const [searchInputTo, setsearchInputTo] = useState('');
     const [toggleSearchFrom, settoggleSearchFrom] = useState(false);
     const [toggleSearchTo, settoggleSearchTo] = useState(false);
-    const [toggleButton, settoggleButton] = useState(false);
+    const [toggleButton, settoggleButton] = useState({
+        from: false,
+        to: false,
+    });
     const nextInp = useRef();
-    const buttonRef = useRef();
 
+    console.log(textInputValue);
     // console.log('origin', originPlace);
     const setToggleFromTrue = () => {
         settoggleSearchFrom(true);
@@ -34,7 +42,7 @@ const DestinationSearch = () => {
     const setToggleFromFalse = () => {
         settoggleSearchFrom(false);
     };
-    const setToggleButtonTrue = () => {
+    const setToggleButtonTrue = (props) => {
         settoggleButton(true);
     };
     const getInputFrom = (searchInputFrom) => {
@@ -78,7 +86,7 @@ const DestinationSearch = () => {
             .then((destinationPrediction) =>
                 setdestinationPrediction(destinationPrediction.predictions)
             );
-        console.log('Harsh', destinationPrediction.description);
+        //console.log('Harsh', destinationPrediction.description);
     };
 
     const getOrigin = (id, key) => {
@@ -86,9 +94,13 @@ const DestinationSearch = () => {
             `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
         )
             .then((response) => response.json())
-            .then((originPlace) =>
-                setOriginPlace(originPlace.result.geometry.location)
-            );
+            .then((originPlace) => {
+                setOriginPlace(originPlace.result.geometry.location);
+                settextInputValue({
+                    ...textInputValue,
+                    inputFrom: originPlace.result.formatted_address,
+                });
+            });
     };
 
     const getDestination = (id, key) => {
@@ -101,8 +113,8 @@ const DestinationSearch = () => {
             );
     };
 
-    console.log('O-----', originPlace);
-    console.log('D-----', destinationPlace);
+    // console.log('O-----', originPlace);
+    // console.log('D-----', destinationPlace);
 
     return (
         <View>
@@ -116,12 +128,20 @@ const DestinationSearch = () => {
                     <TextInput
                         style={styles.inpTxt}
                         placeholder='Where From?'
+                        value={textInputValue.inputFrom}
                         onChangeText={getInputFrom}
                         onTextInput={() =>
                             getOriginPediction(searchInputFrom, GOOGLE_API)
                         }
                         onChange={setToggleFromTrue}
-                        onFocus={setToggleToFalse}
+                        // TODO: Add clear text button
+                        onFocus={() => {
+                            setToggleToFalse;
+                            settextInputValue({
+                                ...textInputValue,
+                                inputFrom: '',
+                            });
+                        }}
                         //onBlur={setToggleFromFalse}
                     />
                     <TextInput
@@ -159,6 +179,10 @@ const DestinationSearch = () => {
                                     onPressIn={() => {
                                         //navigation.navigate('Search Results');
                                         getOrigin(item.place_id, GOOGLE_API);
+                                        settoggleButton({
+                                            from: true,
+                                            to: false,
+                                        });
                                     }}
                                     onPressOut={() => nextInp.current.focus()}
                                 >
@@ -209,26 +233,17 @@ const DestinationSearch = () => {
                             <View>
                                 <TouchableOpacity
                                     style={styles.inputBox}
-                                    onPress={() => {
+                                    onPressIn={() => {
                                         setToggleToFalse();
-                                        settoggleButton();
-                                    }}
-                                    // onPress={() =>
-                                    //     navigation.navigate('Search Results', {
-                                    //         originPlace,
-                                    //         destinationPlace,
-                                    //     })
-                                    //     {
-                                    //         setToggleToFalse,
-                                    //             setToggleButtonTrue;
-                                    //     }
-                                    // }
-                                    onPressIn={() =>
+                                        settoggleButton({
+                                            ...toggleButton,
+                                            to: true,
+                                        });
                                         getDestination(
                                             item.place_id,
                                             GOOGLE_API
-                                        )
-                                    }
+                                        );
+                                    }}
                                 >
                                     <View style={styles.listContainer}>
                                         <View style={styles.iconContainer}>
@@ -262,27 +277,29 @@ const DestinationSearch = () => {
             <View style={styles.mapContainer}>
                 <SearchMap />
             </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() =>
-                        navigation.navigate('Search Results', {
-                            originPlace,
-                            destinationPlace,
-                        })
-                    }
-                >
-                    <Text
-                        style={{
-                            color: '#fff',
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                        }}
+            {toggleButton.from === true && toggleButton.to === true && (
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() =>
+                            navigation.navigate('Search Results', {
+                                originPlace,
+                                destinationPlace,
+                            })
+                        }
                     >
-                        Find Ride
-                    </Text>
-                </TouchableOpacity>
-            </View>
+                        <Text
+                            style={{
+                                color: '#fff',
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Find Ride
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
         </View>
     );
 };
