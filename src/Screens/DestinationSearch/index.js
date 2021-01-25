@@ -59,15 +59,6 @@ const DestinationSearch = () => {
         setsearchInputTo(searchInputTo);
     };
 
-    // const gotoResults = async (item) => {
-    //     await getDestination(item.place_id, GOOGLE_API);
-    //     navigation.navigate('Search Results', {
-    //         originPlace,
-    //         destinationPlace,
-    //     });
-    //     console.log('origin', originPlace, 'dest', destinationPlace);
-    // };
-
     const getOriginPediction = (input, key) => {
         fetch(
             `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${key}`
@@ -108,9 +99,13 @@ const DestinationSearch = () => {
             `https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
         )
             .then((response) => response.json())
-            .then((destinationPlace) =>
-                setDestinationPlace(destinationPlace.result.geometry.location)
-            );
+            .then((destinationPlace) => {
+                setDestinationPlace(destinationPlace.result.geometry.location);
+                settextInputValue({
+                    ...textInputValue,
+                    inputTo: destinationPlace.result.formatted_address,
+                });
+            });
     };
 
     // console.log('O-----', originPlace);
@@ -147,6 +142,7 @@ const DestinationSearch = () => {
                     <TextInput
                         style={styles.inpTxt}
                         placeholder='Where To?'
+                        value={textInputValue.inputTo}
                         onChangeText={getInputTo}
                         ref={nextInp}
                         onTextInput={() =>
