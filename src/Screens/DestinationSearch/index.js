@@ -18,11 +18,6 @@ const DestinationSearch = () => {
     const [originPrediction, setoriginPrediction] = useState([]);
     const [destinationPrediction, setdestinationPrediction] = useState([]);
     const [destinationPlace, setDestinationPlace] = useState([]);
-    const [textInputValue, settextInputValue] = useState({
-        inputFrom: '',
-        inputTo: '',
-    });
-
     const navigation = useNavigation();
     const [searchInputFrom, setsearchInputFrom] = useState('');
     const [searchInputTo, setsearchInputTo] = useState('');
@@ -34,7 +29,6 @@ const DestinationSearch = () => {
     });
     const nextInp = useRef();
 
-    console.log(textInputValue);
     // console.log('origin', originPlace);
     const setToggleFromTrue = () => {
         settoggleSearchFrom(true);
@@ -42,11 +36,10 @@ const DestinationSearch = () => {
     const setToggleFromFalse = () => {
         settoggleSearchFrom(false);
     };
-    const setToggleButtonTrue = (props) => {
-        settoggleButton(true);
-    };
+
     const getInputFrom = (searchInputFrom) => {
         setsearchInputFrom(searchInputFrom);
+        console.log('getip', searchInputFrom);
     };
 
     const setToggleToTrue = () => {
@@ -87,10 +80,6 @@ const DestinationSearch = () => {
             .then((response) => response.json())
             .then((originPlace) => {
                 setOriginPlace(originPlace.result.geometry.location);
-                settextInputValue({
-                    ...textInputValue,
-                    inputFrom: originPlace.result.formatted_address,
-                });
             });
     };
 
@@ -101,10 +90,6 @@ const DestinationSearch = () => {
             .then((response) => response.json())
             .then((destinationPlace) => {
                 setDestinationPlace(destinationPlace.result.geometry.location);
-                settextInputValue({
-                    ...textInputValue,
-                    inputTo: destinationPlace.result.formatted_address,
-                });
             });
     };
 
@@ -123,26 +108,20 @@ const DestinationSearch = () => {
                     <TextInput
                         style={styles.inpTxt}
                         placeholder='Where From?'
-                        value={textInputValue.inputFrom}
+                        value={searchInputFrom}
                         onChangeText={getInputFrom}
                         onTextInput={() =>
                             getOriginPediction(searchInputFrom, GOOGLE_API)
                         }
                         onChange={setToggleFromTrue}
                         // TODO: Add clear text button
-                        onFocus={() => {
-                            setToggleToFalse;
-                            settextInputValue({
-                                ...textInputValue,
-                                inputFrom: '',
-                            });
-                        }}
+                        onFocus={setToggleToFalse}
                         //onBlur={setToggleFromFalse}
                     />
                     <TextInput
                         style={styles.inpTxt}
                         placeholder='Where To?'
-                        value={textInputValue.inputTo}
+                        value={searchInputTo}
                         onChangeText={getInputTo}
                         ref={nextInp}
                         onTextInput={() =>
@@ -179,6 +158,7 @@ const DestinationSearch = () => {
                                             from: true,
                                             to: false,
                                         });
+                                        setsearchInputFrom(item.description);
                                     }}
                                     onPressOut={() => nextInp.current.focus()}
                                 >
@@ -239,6 +219,7 @@ const DestinationSearch = () => {
                                             item.place_id,
                                             GOOGLE_API
                                         );
+                                        setsearchInputTo(item.description);
                                     }}
                                 >
                                     <View style={styles.listContainer}>
