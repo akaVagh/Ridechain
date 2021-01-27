@@ -29,10 +29,10 @@ const DestinationSearch = () => {
     });
     const nextInp = useRef();
 
-    // console.log('origin', originPlace);
     const setToggleFromTrue = () => {
         settoggleSearchFrom(true);
     };
+
     const setToggleFromFalse = () => {
         settoggleSearchFrom(false);
     };
@@ -70,7 +70,6 @@ const DestinationSearch = () => {
             .then((destinationPrediction) =>
                 setdestinationPrediction(destinationPrediction.predictions)
             );
-        //console.log('Harsh', destinationPrediction.description);
     };
 
     const getOrigin = (id, key) => {

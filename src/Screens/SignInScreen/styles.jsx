@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
     },
     footer: {
-        flex: 3,
+        flex: 4,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     text_footer: {
         color: '#05375a',
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 25,
     },
     action: {
         flexDirection: 'row',
@@ -34,13 +34,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         //borderBottomColor: '#f2f2f2',
         //paddingBottom: 5,
-    },
-    actionError: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#FF0000',
-        paddingBottom: 5,
     },
     textInput: {
         flex: 1,
