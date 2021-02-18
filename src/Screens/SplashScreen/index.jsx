@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StatusBar, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import Logo from '../../Components/Logo';
