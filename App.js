@@ -39,7 +39,11 @@ export default function App() {
 	return (
 		<>
 			<SafeAreaView style={styles.droidSafeArea}>
-				<StatusBar style='auto' />
+				<StatusBar
+					style='auto'
+					translucent={true}
+					backgroundColor={'transparent'}
+				/>
 				{user ? <Drawer /> : <RootStack />}
 			</SafeAreaView>
 		</>
@@ -47,12 +51,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	droidSafeArea: {
 		flex: 1,
 		paddingTop: Platform.OS === 'android' ? 24 : 0,
