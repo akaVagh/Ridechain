@@ -11,27 +11,27 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Root = createStackNavigator();
 
 const RootStack = (props) => {
-    return (
-        <NavigationContainer>
-            <Root.Navigator>
-                <Root.Screen
-                    name='Splash'
-                    component={SplashScreen}
-                    options={{ headerShown: false }}
-                />
-                <Root.Screen
-                    name='SignIn'
-                    component={SignInScreen}
-                    options={{ headerShown: false }}
-                />
-                <Root.Screen
-                    name='SignUp'
-                    component={SignUpScreen}
-                    options={{ headerShown: false }}
-                />
-            </Root.Navigator>
-        </NavigationContainer>
-    );
+	return (
+		<NavigationContainer>
+			<Root.Navigator>
+				<Root.Screen
+					name='Splash'
+					component={SplashScreen}
+					options={{ headerShown: false }}
+				/>
+				<Root.Screen
+					name='SignIn'
+					component={SignInScreen}
+					options={{ headerShown: false }}
+				/>
+				<Root.Screen
+					name='SignUp'
+					component={SignUpScreen}
+					options={{ headerShown: false }}
+				/>
+			</Root.Navigator>
+		</NavigationContainer>
+	);
 };
 export default RootStack;
 
