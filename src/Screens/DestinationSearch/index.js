@@ -8,12 +8,11 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
-import { useBackButton, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import SearchMap from '../../Components/SearchMap';
 import { useDispatch, useSelector } from 'react-redux';
 import * as apiActions from '../../redux/actions/apiActions';
-const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
 const DestinationSearch = () => {
 	const originPlace = useSelector((state) => state.api.origin);
