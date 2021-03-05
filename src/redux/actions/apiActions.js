@@ -134,3 +134,16 @@ export const setPlaceid = (id, flag) => {
 		};
 	}
 };
+
+export const setOrigin = (location) => {
+	return {
+		type: actionTypes.GET_ORIGIN,
+		origin: location,
+	};
+};
+export const setDestination = (location) => {
+	return {
+		type: actionTypes.GET_DESTINATION,
+		destination: location,
+	};
+};
