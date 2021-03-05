@@ -11,17 +11,21 @@ import styles from './styles';
 import { useBackButton, useNavigation } from '@react-navigation/native';
 import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import SearchMap from '../../Components/SearchMap';
+import { useDispatch, useSelector } from 'react-redux';
+import * as apiActions from '../../redux/actions/apiActions';
 const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
 const DestinationSearch = () => {
-	const [originPlace, setOriginPlace] = useState([]);
-	const [originPrediction, setoriginPrediction] = useState([]);
-	const [destinationPrediction, setdestinationPrediction] = useState([]);
-	const [destinationPlace, setDestinationPlace] = useState([]);
-	const [placeid, setPlaceid] = useState({
-		originPlaceId: '',
-		destinationPlaceId: '',
-	});
+	const originPlace = useSelector((state) => state.api.origin);
+	const destinationPlace = useSelector((state) => state.api.destination);
+	const originPredictions = useSelector(
+		(state) => state.api.originPredictions
+	);
+	const destinationPredictions = useSelector(
+		(state) => state.api.destinationPredictions
+	);
+	const placeid = useSelector((state) => state.api.placeid);
+	const dispatch = useDispatch();
 
 	const navigation = useNavigation();
 	const [searchInputFrom, setsearchInputFrom] = useState('');
@@ -55,47 +59,6 @@ const DestinationSearch = () => {
 	const getInputTo = (searchInputTo) => {
 		setsearchInputTo(searchInputTo);
 	};
-
-	const getOriginPediction = (input, key) => {
-		fetch(
-			`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${key}`
-		)
-			.then((response) => response.json())
-			.then((originPrediction) =>
-				setoriginPrediction(originPrediction.predictions)
-			);
-	};
-
-	const getDestinationPediction = (input, key) => {
-		fetch(
-			`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${key}`
-		)
-			.then((response) => response.json())
-			.then((destinationPrediction) =>
-				setdestinationPrediction(destinationPrediction.predictions)
-			);
-	};
-
-	const getOrigin = (id, key) => {
-		fetch(
-			`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
-		)
-			.then((response) => response.json())
-			.then((originPlace) => {
-				setOriginPlace(originPlace.result.geometry.location);
-			});
-	};
-
-	const getDestination = (id, key) => {
-		fetch(
-			`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${key}`
-		)
-			.then((response) => response.json())
-			.then((destinationPlace) => {
-				setDestinationPlace(destinationPlace.result.geometry.location);
-			});
-	};
-
 	return (
 		<View>
 			<View style={styles.container}>
@@ -110,13 +73,14 @@ const DestinationSearch = () => {
 						placeholder='Where From?'
 						value={searchInputFrom}
 						onChangeText={getInputFrom}
-						onTextInput={() =>
-							getOriginPediction(searchInputFrom, GOOGLE_API)
-						}
+						onTextInput={() => {
+							dispatch(
+								apiActions.getOriginPediction(searchInputFrom)
+							);
+						}}
 						onChange={setToggleFromTrue}
 						// TODO: Add clear text button
 						onFocus={setToggleToFalse}
-						//onBlur={setToggleFromFalse}
 					/>
 					<TextInput
 						style={styles.inpTxt}
@@ -124,12 +88,15 @@ const DestinationSearch = () => {
 						value={searchInputTo}
 						onChangeText={getInputTo}
 						ref={nextInp}
-						onTextInput={() =>
-							getDestinationPediction(searchInputTo, GOOGLE_API)
-						}
+						onTextInput={() => {
+							dispatch(
+								apiActions.getDestinationPediction(
+									searchInputTo
+								)
+							);
+						}}
 						onChange={setToggleToTrue}
 						onFocus={setToggleFromFalse}
-						//onBlur={setToggleToFalse}
 					/>
 				</View>
 			</View>
@@ -145,19 +112,22 @@ const DestinationSearch = () => {
 						</View>
 					</TouchableOpacity>
 					<FlatList
-						data={originPrediction}
+						data={originPredictions}
 						keyExtractor={(item) => item.place_id}
 						renderItem={({ item }) => (
 							<View>
 								<TouchableOpacity
 									style={styles.inputBox}
 									onPressIn={() => {
-										//navigation.navigate('Search Results');
-										getOrigin(item.place_id, GOOGLE_API);
-										setPlaceid({
-											...placeid,
-											originPlaceId: item.place_id,
-										});
+										dispatch(
+											apiActions.getOrigin(item.place_id)
+										);
+										dispatch(
+											apiActions.setPlaceid(
+												item.place_id,
+												'origin'
+											)
+										);
 										settoggleButton({
 											from: true,
 											to: false,
@@ -207,7 +177,7 @@ const DestinationSearch = () => {
 						</View>
 					</TouchableOpacity>
 					<FlatList
-						data={destinationPrediction}
+						data={destinationPredictions}
 						keyExtractor={(item) => item.place_id}
 						renderItem={({ item }) => (
 							<View>
@@ -219,15 +189,17 @@ const DestinationSearch = () => {
 											...toggleButton,
 											to: true,
 										});
-										setPlaceid({
-											...placeid,
-											destinationPlaceId: item.place_id,
-										});
-										getDestination(
-											item.place_id,
-											GOOGLE_API
+										dispatch(
+											apiActions.getDestination(
+												item.place_id
+											)
 										);
-										//getDistanceParam();
+										dispatch(
+											apiActions.setPlaceid(
+												item.place_id,
+												'destination'
+											)
+										);
 										setsearchInputTo(item.description);
 									}}
 								>

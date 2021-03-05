@@ -13,6 +13,8 @@ import Drawer from './src/Navigation/DrawerScreen';
 import RootStack from './src/Navigation/RootStack';
 import firebase from 'firebase';
 import { firebaseConfig } from './src/Components/firebase/config';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 if (!firebase.apps.length) {
 	firebase.initializeApp(firebaseConfig);
@@ -37,16 +39,18 @@ export default function App() {
 	});
 
 	return (
-		<>
-			<SafeAreaView style={styles.droidSafeArea}>
-				<StatusBar
-					style='auto'
-					translucent={true}
-					backgroundColor={'transparent'}
-				/>
-				{user ? <Drawer /> : <RootStack />}
-			</SafeAreaView>
-		</>
+		<Provider store={store}>
+			<>
+				<SafeAreaView style={styles.droidSafeArea}>
+					<StatusBar
+						style='auto'
+						translucent={true}
+						backgroundColor={'transparent'}
+					/>
+					{user ? <Drawer /> : <RootStack />}
+				</SafeAreaView>
+			</>
+		</Provider>
 	);
 }
 
