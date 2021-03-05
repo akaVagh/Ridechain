@@ -3,6 +3,7 @@ import { Image, View, Pressable } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from './styles';
+import { useSelector } from 'react-redux';
 const SearchMap = (props) => {
 	const [region, setRegion] = useState({
 		latitudeDelta: 0.0222,
@@ -10,7 +11,7 @@ const SearchMap = (props) => {
 		latitude: 21.209934,
 		longitude: 72.873976,
 	});
-
+	const originRegion = useSelector((state) => state.api.origin);
 	const mapRef = useRef(null);
 
 	//console.log(region);

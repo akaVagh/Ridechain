@@ -1,8 +1,8 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
-	origin: {},
-	destination: {},
+	origin: { latitude: '', longitude: '' },
+	destination: { latitude: '', longitude: '' },
 	originPredictions: [],
 	destinationPredictions: [],
 	placeid: {},
@@ -14,12 +14,20 @@ const apiReducer = (state = initialState, action) => {
 		case actionTypes.GET_ORIGIN:
 			return {
 				...state,
-				origin: action.origin,
+				origin: {
+					...state.origin,
+					latitude: action.origin.lat,
+					longitude: action.origin.lng,
+				},
 			};
 		case actionTypes.GET_DESTINATION:
 			return {
 				...state,
-				destination: action.destination,
+				destination: {
+					...state.destination,
+					latitude: action.destination.lat,
+					longitude: action.destination.lng,
+				},
 			};
 		case actionTypes.GET_ORIGIN_PREDICTION:
 			return {
@@ -53,7 +61,9 @@ const apiReducer = (state = initialState, action) => {
 				tripParam: {
 					...state.tripParam,
 					distance: action.distance,
+					distText: action.distText,
 					duration: action.duration,
+					durText: action.durText,
 				},
 			};
 		default:

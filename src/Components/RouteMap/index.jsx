@@ -1,17 +1,20 @@
 import React from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import { useSelector } from 'react-redux';
 import DestinationSearch from '../../Screens/DestinationSearch';
 
 const RouteMap = (props) => {
+	const origin = useSelector((state) => state.api.origin);
+	const destination = useSelector((state) => state.api.destination);
 	const GOOGLE_MAPS_APIKEY = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
-	const origin = {
-		latitude: props.origin.lat,
-		longitude: props.origin.lng,
+	const originRegion = {
+		latitude: origin.latitude,
+		longitude: origin.longitude,
 	};
-	const destination = {
-		latitude: props.destination.lat,
-		longitude: props.destination.lng,
+	const destinationRegion = {
+		latitude: destination.latitude,
+		longitude: destination.longitude,
 	};
 	return (
 		<MapView
@@ -26,23 +29,23 @@ const RouteMap = (props) => {
 			}}
 		>
 			<MapViewDirections
-				origin={origin}
-				destination={destination}
+				origin={originRegion}
+				destination={destinationRegion}
 				apikey={GOOGLE_MAPS_APIKEY}
 				strokeWidth={5}
 				strokeColor='black'
 			/>
 			<Marker
 				coordinate={{
-					latitude: props.origin.lat,
-					longitude: props.origin.lng,
+					latitude: origin.latitude,
+					longitude: origin.longitude,
 				}}
 				title={'Pick up'}
 			/>
 			<Marker
 				coordinate={{
-					latitude: props.destination.lat,
-					longitude: props.destination.lng,
+					latitude: destination.latitude,
+					longitude: destination.longitude,
 				}}
 				title={'Drop off'}
 			/>

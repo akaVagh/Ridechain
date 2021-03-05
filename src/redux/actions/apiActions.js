@@ -76,19 +76,21 @@ export const getDestinationPediction = (input) => {
 
 export const getDistanceDuration = (placeid, op, dp) => {
 	// console.log('placeid----------------', placeid);
-	// console.log('op-----', op);
-	// console.log('dp-----', dp);
+	console.log('op-----', op);
+	console.log('dp-----', dp);
 	return (dispatch) => {
 		return axios
 			.get(
-				`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${op.lat},${op.lng}&destinations=${dp.lat},${dp.lng}&key=${GOOGLE_API}
+				`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${op.latitude},${op.longitude}&destinations=${dp.latitude},${dp.longitude}&key=${GOOGLE_API}
 				`
 			)
 			.then((response) => {
 				dispatch({
 					type: actionTypes.GET_DISTANCE_DURATION,
 					distance: response.data.rows[0].elements[0].distance.value,
+					distText: response.data.rows[0].elements[0].distance.text,
 					duration: response.data.rows[0].elements[0].duration.value,
+					durText: response.data.rows[0].elements[0].duration.text,
 				});
 			})
 			.catch((error) => {

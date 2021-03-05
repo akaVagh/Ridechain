@@ -23,7 +23,6 @@ if (!firebase.apps.length) {
 }
 export default function App() {
 	const [user, setuser] = useState(false);
-
 	const checkIfLoggedIn = () => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
