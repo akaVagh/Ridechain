@@ -25,6 +25,8 @@ const DestinationSearch = () => {
 		(state) => state.api.destinationPredictions
 	);
 	const placeid = useSelector((state) => state.api.placeid);
+	const tripParam = useSelector((state) => state.api.tripParam);
+	console.log('tripParam', tripParam);
 	const dispatch = useDispatch();
 
 	const navigation = useNavigation();
@@ -119,6 +121,11 @@ const DestinationSearch = () => {
 								<TouchableOpacity
 									style={styles.inputBox}
 									onPressIn={() => {
+										settoggleButton({
+											from: true,
+											to: false,
+										});
+										setsearchInputFrom(item.description);
 										dispatch(
 											apiActions.getOrigin(item.place_id)
 										);
@@ -128,11 +135,6 @@ const DestinationSearch = () => {
 												'origin'
 											)
 										);
-										settoggleButton({
-											from: true,
-											to: false,
-										});
-										setsearchInputFrom(item.description);
 									}}
 									onPressOut={() => nextInp.current.focus()}
 								>
@@ -189,6 +191,7 @@ const DestinationSearch = () => {
 											...toggleButton,
 											to: true,
 										});
+										setsearchInputTo(item.description);
 										dispatch(
 											apiActions.getDestination(
 												item.place_id
@@ -200,7 +203,6 @@ const DestinationSearch = () => {
 												'destination'
 											)
 										);
-										setsearchInputTo(item.description);
 									}}
 								>
 									<View style={styles.listContainer}>
@@ -239,13 +241,20 @@ const DestinationSearch = () => {
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity
 						style={styles.button}
-						onPress={() =>
+						onPress={() => {
 							navigation.navigate('Search Results', {
 								originPlace,
 								destinationPlace,
 								placeid,
-							})
-						}
+							});
+							dispatch(
+								apiActions.getDistanceDuration(
+									placeid,
+									originPlace,
+									destinationPlace
+								)
+							);
+						}}
 					>
 						<Text
 							style={{

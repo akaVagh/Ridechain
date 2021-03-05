@@ -6,6 +6,7 @@ const initialState = {
 	originPredictions: [],
 	destinationPredictions: [],
 	placeid: {},
+	tripParam: {},
 };
 
 const apiReducer = (state = initialState, action) => {
@@ -44,6 +45,15 @@ const apiReducer = (state = initialState, action) => {
 				placeid: {
 					...state.placeid,
 					destinationPlaceid: action.destinationPlaceid,
+				},
+			};
+		case actionTypes.GET_DISTANCE_DURATION:
+			return {
+				...state,
+				tripParam: {
+					...state.tripParam,
+					distance: action.distance,
+					duration: action.duration,
 				},
 			};
 		default:
