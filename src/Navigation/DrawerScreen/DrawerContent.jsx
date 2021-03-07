@@ -1,17 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import styles from './styles';
-import {
-	useTheme,
-	Avatar,
-	Title,
-	Caption,
-	Paragraph,
-	Drawer,
-	Text,
-	TouchableRipple,
-	Switch,
-} from 'react-native-paper';
+import { useTheme, Avatar, Title, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import firebase from 'firebase';

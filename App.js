@@ -23,10 +23,12 @@ if (!firebase.apps.length) {
 }
 export default function App() {
 	const [user, setuser] = useState(false);
+	const [uid, setuid] = useState();
 	const checkIfLoggedIn = () => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				setuser(true);
+				setuid(user.uid);
 			} else {
 				setuser(false);
 			}
@@ -46,7 +48,7 @@ export default function App() {
 						translucent={true}
 						backgroundColor={'transparent'}
 					/>
-					{user ? <Drawer /> : <RootStack />}
+					{user ? <Drawer uid={uid} /> : <RootStack />}
 				</SafeAreaView>
 			</>
 		</Provider>

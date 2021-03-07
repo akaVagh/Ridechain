@@ -29,32 +29,13 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		color: '#7b7b7b',
 	},
-	input: {
+	name: {
 		fontSize: 20,
-		marginTop: 10,
 		marginLeft: 20,
-		marginRight: 20,
-		borderBottomColor: '#696969',
-		borderBottomWidth: 1,
-	},
-	button: {
-		alignItems: 'center',
-		marginTop: 30,
-	},
-	submit: {
-		width: 170,
-		height: 50,
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 50,
-		flexDirection: 'row',
-		backgroundColor: '#000',
-		borderRadius: 30,
-	},
-	btnText: {
-		color: 'white',
-		fontWeight: 'bold',
-		fontSize: 20,
+		marginTop: 10,
+		marginBottom: 20,
+		fontWeight: '400',
+		color: '#000',
 	},
 });
 
