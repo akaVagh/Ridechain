@@ -51,7 +51,7 @@ const SignInScreen = ({ navigation }) => {
 						createdAt: firebase.firestore.Timestamp.fromDate(
 							new Date()
 						),
-						useImg: null,
+						userImg: null,
 					});
 				console.log(result);
 			});

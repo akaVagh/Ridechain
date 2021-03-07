@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		marginTop: 15,
 		marginLeft: 20,
+		alignItems: 'center',
 	},
 	separator: {
 		borderBottomWidth: 1,
@@ -55,6 +56,54 @@ const styles = StyleSheet.create({
 		color: 'white',
 		fontWeight: 'bold',
 		fontSize: 20,
+	},
+	panel: {
+		padding: 20,
+		backgroundColor: '#fff',
+		paddingTop: 20,
+	},
+	panelHeader: {
+		alignItems: 'center',
+	},
+	panelTitle: {
+		fontSize: 27,
+		height: 35,
+	},
+	panelHandle: {
+		width: 40,
+		height: 8,
+		borderRadius: 4,
+		backgroundColor: '#fff',
+		marginBottom: 10,
+	},
+	panelSubtitle: {
+		fontSize: 14,
+		color: 'gray',
+		height: 30,
+		marginBottom: 10,
+	},
+	panelButton: {
+		padding: 13,
+		borderRadius: 10,
+		backgroundColor: '#000',
+		alignItems: 'center',
+		marginVertical: 7,
+	},
+	panelButtonTitle: {
+		fontSize: 17,
+		fontWeight: 'bold',
+		color: 'white',
+	},
+	header: {
+		backgroundColor: '#000',
+		shadowColor: '#000',
+		shadowOffset: { width: -1, height: -3 },
+		shadowRadius: 2,
+		shadowOpacity: 0.4,
+		// elevation: 5,
+		paddingTop: 20,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20,
 	},
 });
 

@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		marginTop: 15,
 		marginLeft: 20,
+		alignItems: 'center',
 	},
 	separator: {
 		borderBottomWidth: 1,
@@ -29,13 +30,80 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		color: '#7b7b7b',
 	},
-	name: {
+	input: {
 		fontSize: 20,
-		marginLeft: 20,
 		marginTop: 10,
-		marginBottom: 20,
-		fontWeight: '400',
-		color: '#000',
+		marginLeft: 20,
+		marginRight: 20,
+		borderBottomColor: '#696969',
+		borderBottomWidth: 1,
+	},
+	button: {
+		alignItems: 'center',
+		marginTop: 30,
+	},
+	submit: {
+		width: 170,
+		height: 50,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 50,
+		flexDirection: 'row',
+		backgroundColor: '#000',
+		borderRadius: 30,
+	},
+	btnText: {
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 20,
+	},
+	panel: {
+		padding: 20,
+		backgroundColor: '#fff',
+		paddingTop: 20,
+	},
+	panelHeader: {
+		alignItems: 'center',
+	},
+	panelTitle: {
+		fontSize: 27,
+		height: 35,
+	},
+	panelHandle: {
+		width: 40,
+		height: 8,
+		borderRadius: 4,
+		backgroundColor: '#fff',
+		marginBottom: 10,
+	},
+	panelSubtitle: {
+		fontSize: 14,
+		color: 'gray',
+		height: 30,
+		marginBottom: 10,
+	},
+	panelButton: {
+		padding: 13,
+		borderRadius: 10,
+		backgroundColor: '#000',
+		alignItems: 'center',
+		marginVertical: 7,
+	},
+	panelButtonTitle: {
+		fontSize: 17,
+		fontWeight: 'bold',
+		color: 'white',
+	},
+	header: {
+		backgroundColor: '#000',
+		shadowColor: '#000',
+		shadowOffset: { width: -1, height: -3 },
+		shadowRadius: 2,
+		shadowOpacity: 0.4,
+		// elevation: 5,
+		paddingTop: 20,
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20,
 	},
 });
 

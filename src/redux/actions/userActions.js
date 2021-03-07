@@ -8,9 +8,9 @@ export const setUserId = (userId) => {
 		uid: userId,
 	};
 };
-export const setUserdata = (data) => {
+export const setUserFame = (fname) => {
 	return {
 		type: actionTypes.SET_USER_ID,
-		userData: data,
+		fname: fname,
 	};
 };

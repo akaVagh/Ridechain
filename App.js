@@ -7,6 +7,7 @@ import {
 	View,
 	SafeAreaView,
 	ActivityIndicator,
+	LogBox,
 } from 'react-native';
 
 import Drawer from './src/Navigation/DrawerScreen';
@@ -16,6 +17,15 @@ import { firebaseConfig } from './src/Components/firebase/config';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 
+import _ from 'lodash';
+
+LogBox.ignoreLogs(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = (message) => {
+	if (message.indexOf('Setting a timer') <= -1) {
+		_console.warn(message);
+	}
+};
 if (!firebase.apps.length) {
 	firebase.initializeApp(firebaseConfig);
 } else {

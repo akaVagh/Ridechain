@@ -72,6 +72,11 @@ const apiReducer = (state = initialState, action) => {
 					durText: action.durText,
 				},
 			};
+		case actionTypes.SET_USER_ID:
+			return {
+				...state,
+				uid: action.uid,
+			};
 		default:
 			return state;
 	}

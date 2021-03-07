@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes';
 
 const initialState = {
 	uid: '',
-	userData: {},
+	first_name: '',
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ const userReducer = (state = initialState, action) => {
 		case actionTypes.SET_USER_DATA:
 			return {
 				...state,
-				userData: action.userData,
+				first_name: action.fname,
 			};
 
 		default:

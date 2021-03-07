@@ -80,7 +80,7 @@ const SignUpScreen = ({ navigation }) => {
 								),
 								mobileNo: '',
 
-								useImg: null,
+								userImg: null,
 							});
 					})
 					.catch((error) => {
