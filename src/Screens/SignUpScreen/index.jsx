@@ -47,21 +47,23 @@ const SignUpScreen = ({ navigation }) => {
 					.then((result) => {
 						//console.log('result from firebase.then', result);
 						firebase
-							.database()
-							.ref('/users/' + result.user.uid)
+							.firestore()
+							.collection('riders')
+							.doc(firebase.auth().currentUser.uid)
 							.set({
-								gmail: result.additionalUserInfo.profile.email,
-								profile_picture:
-									result.additionalUserInfo.profile.picture,
 								first_name:
 									result.additionalUserInfo.profile
 										.given_name,
 								last_name:
 									result.additionalUserInfo.profile
 										.family_name,
-							})
-							.then((snapshot) => {
-								console.log('snapshot', snapshot);
+								email: result.additionalUserInfo.profile.email,
+								createdAt: firebase.firestore.Timestamp.fromDate(
+									new Date()
+								),
+								mobileNo: '',
+
+								userImg: null,
 							});
 					})
 					.catch((error) => {
