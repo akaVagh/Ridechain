@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import styles from './styles';
-import {
-	useTheme,
-	Avatar,
-	Title,
-	Caption,
-	Paragraph,
-	Drawer,
-	Text,
-	TouchableRipple,
-	Switch,
-} from 'react-native-paper';
+import { useTheme, Avatar, Title, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import firebase from 'firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import * as userActions from '../../redux/actions/userActions';
 
 const DrawerContent = (props) => {
-	const paperTheme = useTheme();
+	console.log('props', props);
+	const dispatch = useDispatch();
 
-	//  const { signOut, toggleTheme } = React.useContext(AuthContext);
-
+	const uid = useSelector((state) => state.user.uid.uid);
+	const userData = useSelector((state) => state.user.userData);
+	const getUser = async () => {
+		const currentUser = await firebase
+			.firestore()
+			.collection('riders')
+			.doc(uid)
+			.get()
+			.then((userSnapshot) => {
+				if (userSnapshot.exists) {
+					//console.log('userSnapshot.data()', userSnapshot.data());
+					dispatch(userActions.setUserData(userSnapshot.data()));
+				}
+			});
+	};
+	useEffect(() => {
+		getUser();
+	}, []);
 	return (
 		<View style={{ flex: 1 }}>
 			<DrawerContentScrollView {...props}>
@@ -28,7 +37,11 @@ const DrawerContent = (props) => {
 					<View style={styles.userInfoSection}>
 						<View style={styles.image}>
 							<Avatar.Image
-								source={require('../../assets/images/Image.jpg')}
+								source={{
+									uri: userData
+										? userData.imgUrl
+										: 'https://homepages.cae.wisc.edu/~ece533/images/baboon.png',
+								}}
 								size={125}
 							/>
 						</View>
@@ -40,7 +53,7 @@ const DrawerContent = (props) => {
 								}}
 							>
 								<Title style={styles.title}>
-									Harsh Vaghani
+									{userData.first_name} {userData.last_name}
 								</Title>
 							</View>
 						</View>
