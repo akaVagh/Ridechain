@@ -19,15 +19,21 @@ import Animated from 'react-native-reanimated';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
-
+import * as userActions from '../../redux/actions/userActions';
 const ProfileScreen = (props) => {
+	const user = useSelector((state) => state.user.userData);
+
+	const [image, setImage] = useState(
+		'https://api.adorable.io/avatars/80/abott@adorable.png'
+	);
 	const sheet = useRef();
 	const dispatch = useDispatch();
 	const fall = new Animated.Value();
 	const uid = useSelector((state) => state.user.uid.uid);
 	const [uploading, setUploading] = useState(false);
 	const [transferred, settransferred] = useState(0);
-	const [userData, setuserData] = useState(null);
+	const [userData, setuserData] = useState(user);
+	console.log('userData', userData);
 	const getUser = async () => {
 		const currentUser = await firebase
 			.firestore()
@@ -37,7 +43,8 @@ const ProfileScreen = (props) => {
 			.then((userSnapshot) => {
 				if (userSnapshot.exists) {
 					setuserData(userSnapshot.data());
-					console.log('userSnapshot.data()', userSnapshot.data());
+					//console.log('userSnapshot.data()', userSnapshot.data());
+					dispatch(userActions.setUserData(userSnapshot.data()));
 				}
 			});
 	};
@@ -58,9 +65,7 @@ const ProfileScreen = (props) => {
 			}
 		})();
 	}, []);
-	const [image, setImage] = useState(
-		'https://api.adorable.io/avatars/80/abott@adorable.png'
-	);
+
 	//console.log('image', image);
 	const takePhotoFromCamera = async () => {
 		await ImagePicker.launchCameraAsync({
@@ -81,7 +86,9 @@ const ProfileScreen = (props) => {
 			aspect: [4, 4],
 			quality: 1,
 		}).then((result) => {
+			//console.log('result', result);
 			setImage(result);
+			setuserData({ ...userData, imgUrl: result.uri });
 			sheet.current.snapTo(1);
 		});
 	};
@@ -202,7 +209,7 @@ const ProfileScreen = (props) => {
 							onPress={() => sheet.current.snapTo(0)}
 						>
 							<Avatar.Image
-								source={{ uri: image.uri }}
+								source={{ uri: userData.imgUrl }}
 								size={125}
 							/>
 						</TouchableOpacity>

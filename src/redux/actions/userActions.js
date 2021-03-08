@@ -8,9 +8,13 @@ export const setUserId = (userId) => {
 		uid: userId,
 	};
 };
-export const setUserFame = (fname) => {
+export const setUserData = (data) => {
 	return {
-		type: actionTypes.SET_USER_ID,
-		fname: fname,
+		type: actionTypes.SET_USER_DATA,
+		fname: data.first_name,
+		lname: data.last_name,
+		mobile: data.mobileNo,
+		email: data.email,
+		imgUrl: data.userImg,
 	};
 };
