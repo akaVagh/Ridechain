@@ -16,7 +16,6 @@ import firebase from 'firebase';
 import { firebaseConfig } from './src/Components/firebase/config';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
-
 import _ from 'lodash';
 
 LogBox.ignoreLogs(['Setting a timer']);
@@ -34,6 +33,7 @@ if (!firebase.apps.length) {
 export default function App() {
 	const [user, setuser] = useState(false);
 	const [uid, setuid] = useState();
+
 	const checkIfLoggedIn = () => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
@@ -44,7 +44,6 @@ export default function App() {
 			}
 		});
 	};
-
 	useEffect(() => {
 		checkIfLoggedIn();
 	});

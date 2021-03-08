@@ -29,13 +29,12 @@ const ProfileScreen = (props) => {
 	const sheet = useRef();
 	const dispatch = useDispatch();
 	const fall = new Animated.Value();
-	const uid = useSelector((state) => state.user.uid.uid);
+	const uid = useSelector((state) => state.user.uid);
 	const [uploading, setUploading] = useState(false);
 	const [transferred, settransferred] = useState(0);
 	const [userData, setuserData] = useState(user);
-	console.log('userData', userData);
 	const getUser = async () => {
-		const currentUser = await firebase
+		await firebase
 			.firestore()
 			.collection('riders')
 			.doc(uid)
@@ -65,19 +64,41 @@ const ProfileScreen = (props) => {
 			}
 		})();
 	}, []);
-
-	//console.log('image', image);
-	const takePhotoFromCamera = async () => {
-		await ImagePicker.launchCameraAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All,
-			allowsEditing: true,
-			aspect: [4, 4],
-			quality: 1,
-		}).then((result) => {
-			setImage(result);
-			sheet.current.snapTo(1);
-		});
-	};
+	const renderInner = () => (
+		<View style={styles.panel}>
+			<View style={{ alignItems: 'center' }}>
+				<Text style={styles.panelTitle}>Upload Photo</Text>
+				<Text style={styles.panelSubtitle}>
+					Choose Your Profile Picture
+				</Text>
+			</View>
+			<TouchableOpacity
+				style={styles.panelButton}
+				onPress={takePhotoFromCamera}
+			>
+				<Text style={styles.panelButtonTitle}>Take Photo</Text>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={styles.panelButton}
+				onPress={choosePhotoFromLibrary}
+			>
+				<Text style={styles.panelButtonTitle}>Choose From Library</Text>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={styles.panelButton}
+				onPress={() => sheet.current.snapTo(1)}
+			>
+				<Text style={styles.panelButtonTitle}>Cancel</Text>
+			</TouchableOpacity>
+		</View>
+	);
+	const renderHeader = () => (
+		<View style={styles.header}>
+			<View style={styles.panelHeader}>
+				<View style={styles.panelHandle} />
+			</View>
+		</View>
+	);
 
 	const choosePhotoFromLibrary = async () => {
 		await ImagePicker.launchImageLibraryAsync({
@@ -89,6 +110,17 @@ const ProfileScreen = (props) => {
 			//console.log('result', result);
 			setImage(result);
 			setuserData({ ...userData, imgUrl: result.uri });
+			sheet.current.snapTo(1);
+		});
+	};
+	const takePhotoFromCamera = async () => {
+		await ImagePicker.launchCameraAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			allowsEditing: true,
+			aspect: [4, 4],
+			quality: 1,
+		}).then((result) => {
+			setImage(result);
 			sheet.current.snapTo(1);
 		});
 	};
@@ -128,6 +160,7 @@ const ProfileScreen = (props) => {
 			return null;
 		}
 	};
+
 	const handleUpdate = async () => {
 		let imgUrl = await uploadImage();
 		if (imgUrl == null && userData.i) {
@@ -146,7 +179,7 @@ const ProfileScreen = (props) => {
 				userImg: imgUrl,
 			})
 			.then(() => {
-				console.log('User updated!');
+				//console.log('User updated!');
 				Alert.alert(
 					'Profile updated!',
 					'Your profile has updated successfully '
@@ -155,42 +188,6 @@ const ProfileScreen = (props) => {
 			.catch((error) => console.log('error at update', error));
 	};
 
-	const renderInner = () => (
-		<View style={styles.panel}>
-			<View style={{ alignItems: 'center' }}>
-				<Text style={styles.panelTitle}>Upload Photo</Text>
-				<Text style={styles.panelSubtitle}>
-					Choose Your Profile Picture
-				</Text>
-			</View>
-			<TouchableOpacity
-				style={styles.panelButton}
-				onPress={takePhotoFromCamera}
-			>
-				<Text style={styles.panelButtonTitle}>Take Photo</Text>
-			</TouchableOpacity>
-			<TouchableOpacity
-				style={styles.panelButton}
-				onPress={choosePhotoFromLibrary}
-			>
-				<Text style={styles.panelButtonTitle}>Choose From Library</Text>
-			</TouchableOpacity>
-			<TouchableOpacity
-				style={styles.panelButton}
-				onPress={() => sheet.current.snapTo(1)}
-			>
-				<Text style={styles.panelButtonTitle}>Cancel</Text>
-			</TouchableOpacity>
-		</View>
-	);
-
-	const renderHeader = () => (
-		<View style={styles.header}>
-			<View style={styles.panelHeader}>
-				<View style={styles.panelHandle} />
-			</View>
-		</View>
-	);
 	return (
 		<SafeAreaView>
 			<ScrollView>
@@ -209,7 +206,9 @@ const ProfileScreen = (props) => {
 							onPress={() => sheet.current.snapTo(0)}
 						>
 							<Avatar.Image
-								source={{ uri: userData.imgUrl }}
+								source={{
+									uri: image.uri,
+								}}
 								size={125}
 							/>
 						</TouchableOpacity>
