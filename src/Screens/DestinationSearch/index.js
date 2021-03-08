@@ -25,7 +25,7 @@ const DestinationSearch = () => {
 	);
 	const placeid = useSelector((state) => state.api.placeid);
 	const tripParam = useSelector((state) => state.api.tripParam);
-	console.log('tripParam', tripParam);
+	//console.log('tripParam', tripParam);
 	const dispatch = useDispatch();
 
 	const navigation = useNavigation();
@@ -60,6 +60,11 @@ const DestinationSearch = () => {
 	const getInputTo = (searchInputTo) => {
 		setsearchInputTo(searchInputTo);
 	};
+
+	const calculateFare = async () => {
+		const trpData = await tripParam;
+	};
+
 	return (
 		<View>
 			<View style={styles.container}>
@@ -193,7 +198,8 @@ const DestinationSearch = () => {
 										setsearchInputTo(item.description);
 										dispatch(
 											apiActions.getDestination(
-												item.place_id
+												item.place_id,
+												originPlace
 											)
 										);
 										dispatch(
@@ -246,13 +252,6 @@ const DestinationSearch = () => {
 								destinationPlace,
 								placeid,
 							});
-							dispatch(
-								apiActions.getDistanceDuration(
-									placeid,
-									originPlace,
-									destinationPlace
-								)
-							);
 						}}
 					>
 						<Text
