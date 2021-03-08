@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,17 +8,10 @@ import SettingScreen from '../../Screens/SettingScreen';
 import Router from '../Router';
 import DrawerContent from './DrawerContent';
 import ProfileScreen from '../../Screens/ProfileScreen';
-import { useDispatch, useSelector } from 'react-redux';
-import * as userActions from '../../redux/actions/userActions';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNav = (props) => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(userActions.setUserId(props));
-	}, [props]);
-
 	return (
 		<NavigationContainer>
 			<Drawer.Navigator

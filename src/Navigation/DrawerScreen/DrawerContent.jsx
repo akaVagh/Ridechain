@@ -1,35 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import styles from './styles';
-import { useTheme, Avatar, Title, Drawer } from 'react-native-paper';
+import {
+	useTheme,
+	Avatar,
+	Title,
+	Caption,
+	Paragraph,
+	Drawer,
+	Text,
+	TouchableRipple,
+	Switch,
+} from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import firebase from 'firebase';
-import { useDispatch, useSelector } from 'react-redux';
-import * as userActions from '../../redux/actions/userActions';
 
 const DrawerContent = (props) => {
-	console.log('props', props);
-	const dispatch = useDispatch();
+	const paperTheme = useTheme();
 
-	const uid = useSelector((state) => state.user.uid.uid);
-	const userData = useSelector((state) => state.user.userData);
-	const getUser = async () => {
-		const currentUser = await firebase
-			.firestore()
-			.collection('riders')
-			.doc(uid)
-			.get()
-			.then((userSnapshot) => {
-				if (userSnapshot.exists) {
-					//console.log('userSnapshot.data()', userSnapshot.data());
-					dispatch(userActions.setUserData(userSnapshot.data()));
-				}
-			});
-	};
-	useEffect(() => {
-		getUser();
-	}, []);
+	//  const { signOut, toggleTheme } = React.useContext(AuthContext);
+
 	return (
 		<View style={{ flex: 1 }}>
 			<DrawerContentScrollView {...props}>
@@ -37,11 +28,7 @@ const DrawerContent = (props) => {
 					<View style={styles.userInfoSection}>
 						<View style={styles.image}>
 							<Avatar.Image
-								source={{
-									uri: userData
-										? userData.imgUrl
-										: 'https://homepages.cae.wisc.edu/~ece533/images/baboon.png',
-								}}
+								source={require('../../assets/images/Image.jpg')}
 								size={125}
 							/>
 						</View>
@@ -53,7 +40,7 @@ const DrawerContent = (props) => {
 								}}
 							>
 								<Title style={styles.title}>
-									{userData.first_name} {userData.last_name}
+									Harsh Vaghani
 								</Title>
 							</View>
 						</View>

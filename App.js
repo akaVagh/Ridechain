@@ -7,7 +7,6 @@ import {
 	View,
 	SafeAreaView,
 	ActivityIndicator,
-	LogBox,
 } from 'react-native';
 
 import Drawer from './src/Navigation/DrawerScreen';
@@ -17,15 +16,6 @@ import { firebaseConfig } from './src/Components/firebase/config';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 
-import _ from 'lodash';
-
-LogBox.ignoreLogs(['Setting a timer']);
-const _console = _.clone(console);
-console.warn = (message) => {
-	if (message.indexOf('Setting a timer') <= -1) {
-		_console.warn(message);
-	}
-};
 if (!firebase.apps.length) {
 	firebase.initializeApp(firebaseConfig);
 } else {
@@ -33,12 +23,10 @@ if (!firebase.apps.length) {
 }
 export default function App() {
 	const [user, setuser] = useState(false);
-	const [uid, setuid] = useState();
 	const checkIfLoggedIn = () => {
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				setuser(true);
-				setuid(user.uid);
 			} else {
 				setuser(false);
 			}
@@ -58,7 +46,7 @@ export default function App() {
 						translucent={true}
 						backgroundColor={'transparent'}
 					/>
-					{user ? <Drawer uid={uid} /> : <RootStack />}
+					{user ? <Drawer /> : <RootStack />}
 				</SafeAreaView>
 			</>
 		</Provider>

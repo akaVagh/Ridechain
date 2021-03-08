@@ -39,20 +39,7 @@ const SignInScreen = ({ navigation }) => {
 			.auth()
 			.signInWithCredential(credential)
 			.then((result) => {
-				firebase
-					.firestore()
-					.collection('riders')
-					.doc(firebase.auth().currentUser.uid)
-					.set({
-						first_name: '',
-						last_name: '',
-						email: '',
-						mobileNo: formattedValue,
-						createdAt: firebase.firestore.Timestamp.fromDate(
-							new Date()
-						),
-						userImg: null,
-					});
+				// Do something with the results here
 				console.log(result);
 			});
 	};

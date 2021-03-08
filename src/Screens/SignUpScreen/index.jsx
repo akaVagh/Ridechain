@@ -46,41 +46,22 @@ const SignUpScreen = ({ navigation }) => {
 					.signInWithCredential(credential)
 					.then((result) => {
 						//console.log('result from firebase.then', result);
-						// firebase
-						// 	.database()
-						// 	.ref('/users/' + result.user.uid)
-						// 	.set({
-						// 		gmail: result.additionalUserInfo.profile.email,
-						// 		profile_picture:
-						// 			result.additionalUserInfo.profile.picture,
-						// 		first_name:
-						// 			result.additionalUserInfo.profile
-						// 				.given_name,
-						// 		last_name:
-						// 			result.additionalUserInfo.profile
-						// 				.family_name,
-						// 	})
-						// 	.then((snapshot) => {
-						// 		console.log('snapshot', snapshot);
-						// 	});
 						firebase
-							.firestore()
-							.collection('riders')
-							.doc(firebase.auth().currentUser.uid)
+							.database()
+							.ref('/users/' + result.user.uid)
 							.set({
+								gmail: result.additionalUserInfo.profile.email,
+								profile_picture:
+									result.additionalUserInfo.profile.picture,
 								first_name:
 									result.additionalUserInfo.profile
 										.given_name,
 								last_name:
 									result.additionalUserInfo.profile
 										.family_name,
-								email: result.additionalUserInfo.profile.email,
-								createdAt: firebase.firestore.Timestamp.fromDate(
-									new Date()
-								),
-								mobileNo: '',
-
-								userImg: null,
+							})
+							.then((snapshot) => {
+								console.log('snapshot', snapshot);
 							});
 					})
 					.catch((error) => {
