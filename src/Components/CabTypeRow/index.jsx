@@ -3,8 +3,11 @@ import { View, Image, Text, Pressable } from 'react-native';
 import styles from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
-
+import * as apiActions from '../../redux/actions/apiActions';
+import { useDispatch } from 'react-redux';
 const CabTypeRow = (props) => {
+	const dispatch = useDispatch();
+
 	//console.log('props', props);
 	const { type, onPress, isSelected, setSelectedFare } = props;
 	const tripParam = useSelector((state) => state.api.tripParam);
@@ -50,7 +53,8 @@ const CabTypeRow = (props) => {
 		<Pressable
 			onPress={() => {
 				onPress();
-				setSelectedFare(getPrice());
+				//setSelectedFare( getPrice() );
+				dispatch(apiActions.setRideFare(getPrice()));
 			}}
 			style={[
 				styles.container,

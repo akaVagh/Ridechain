@@ -8,8 +8,7 @@ import { useDispatch } from 'react-redux';
 const CabTypes = ({ typeState, onSubmit }) => {
 	const dispatch = useDispatch();
 	const [selectedType, setSelectedType] = typeState;
-	const [selectedFare, setSelectedFare] = useState(null);
-	dispatch(apiActions.setRideFare(selectedFare));
+	//const [selectedFare, setSelectedFare] = useState(null);
 	return (
 		<View>
 			{typesData.map((type) => (
@@ -20,7 +19,7 @@ const CabTypes = ({ typeState, onSubmit }) => {
 					onPress={() => {
 						setSelectedType(type.type);
 					}}
-					setSelectedFare={setSelectedFare}
+					//setSelectedFare={setSelectedFare}
 				/>
 			))}
 			<Pressable
