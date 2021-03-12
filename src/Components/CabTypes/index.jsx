@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import CabTypeRow from '../CabTypeRow';
 import typesData from '../../assets/data/types';
+import * as apiActions from '../../redux/actions/apiActions';
+import { useDispatch } from 'react-redux';
 
-const CabTypes = ({ typeState, onSubmit, calculateFare }) => {
+const CabTypes = ({ typeState, onSubmit }) => {
+	const dispatch = useDispatch();
 	const [selectedType, setSelectedType] = typeState;
-	const confirm = () => {
-		console.warn('confirm');
-	};
+	const [selectedFare, setSelectedFare] = useState(null);
+	dispatch(apiActions.setRideFare(selectedFare));
 	return (
 		<View>
 			{typesData.map((type) => (
@@ -15,8 +17,10 @@ const CabTypes = ({ typeState, onSubmit, calculateFare }) => {
 					type={type}
 					key={type.id}
 					isSelected={type.type === selectedType}
-					onPress={() => setSelectedType(type.type)}
-					calculateFare={calculateFare}
+					onPress={() => {
+						setSelectedType(type.type);
+					}}
+					setSelectedFare={setSelectedFare}
 				/>
 			))}
 			<Pressable

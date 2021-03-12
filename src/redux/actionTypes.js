@@ -8,3 +8,4 @@ export const SET_ORIGIN_PLACE_ID = 'SET_ORIGIN_PLACE_ID';
 export const SET_DESTIN_PLACE_ID = 'SET_DESTIN_PLACE_ID';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_USER_DATA = 'SET_USER_DATA';
+export const SET_RIDE_FARE = 'SET_RIDE_FARE';

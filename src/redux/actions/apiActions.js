@@ -165,3 +165,9 @@ export const setDestination = (location) => {
 		destination: location,
 	};
 };
+export const setRideFare = (fare) => {
+	return {
+		type: actionTypes.SET_RIDE_FARE,
+		fare: fare,
+	};
+};

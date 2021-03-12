@@ -7,6 +7,7 @@ const initialState = {
 	destinationPredictions: [],
 	placeid: {},
 	tripParam: {},
+	rideFare: null,
 };
 
 const apiReducer = (state = initialState, action) => {
@@ -65,6 +66,11 @@ const apiReducer = (state = initialState, action) => {
 					duration: action.duration,
 					durText: action.durText,
 				},
+			};
+		case actionTypes.SET_RIDE_FARE:
+			return {
+				...state,
+				rideFare: action.fare,
 			};
 		default:
 			return state;
