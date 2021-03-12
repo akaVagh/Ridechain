@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import DestinationSearch from '../../Screens/DestinationSearch';
 import SearchResults from '../../Screens/SearchResults';
 import HomeScreen from '../../Screens/HomeScreen';
+import RideScreen from '../../Screens/RideScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,11 @@ const Router = (props) => {
 			<Stack.Screen
 				name={'Search Results'}
 				component={SearchResults}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name={'Ride Screen'}
+				component={RideScreen}
 				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>

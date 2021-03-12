@@ -8,6 +8,7 @@ import {
 	SafeAreaView,
 	ActivityIndicator,
 	LogBox,
+	BackHandler,
 } from 'react-native';
 
 import Drawer from './src/Navigation/DrawerScreen';
@@ -31,6 +32,20 @@ if (!firebase.apps.length) {
 	firebase.app();
 }
 export default function App() {
+	useEffect(() => {
+		const backAction = () => {
+			BackHandler.addEventListener('hardwareBackPress', () => {
+				navigation.navigate('Home Screen');
+			});
+		};
+
+		const backHandler = BackHandler.addEventListener(
+			'hardwareBackPress',
+			backAction
+		);
+
+		return () => backHandler.remove();
+	}, []);
 	const [user, setuser] = useState(false);
 	const [uid, setuid] = useState();
 

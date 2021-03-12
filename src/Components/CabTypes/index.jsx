@@ -4,11 +4,11 @@ import CabTypeRow from '../CabTypeRow';
 import typesData from '../../assets/data/types';
 import * as apiActions from '../../redux/actions/apiActions';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const CabTypes = ({ typeState, onSubmit }) => {
-	const dispatch = useDispatch();
+	const navigation = useNavigation();
 	const [selectedType, setSelectedType] = typeState;
-	//const [selectedFare, setSelectedFare] = useState(null);
 	return (
 		<View>
 			{typesData.map((type) => (
@@ -23,7 +23,10 @@ const CabTypes = ({ typeState, onSubmit }) => {
 				/>
 			))}
 			<Pressable
-				onPress={onSubmit}
+				onPress={() => {
+					onSubmit();
+					navigation.navigate('Ride Screen');
+				}}
 				style={{
 					padding: 10,
 					margin: 10,

@@ -21,7 +21,7 @@ const SearchResults = (props) => {
 			firebase
 				.firestore()
 				.collection('orders')
-				.doc()
+				.doc(uid)
 				.set({
 					userId: uid,
 					CabType: type,
