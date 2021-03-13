@@ -1,15 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import {
-	StyleSheet,
-	Text,
-	View,
-	SafeAreaView,
-	ActivityIndicator,
-	LogBox,
-	BackHandler,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, LogBox } from 'react-native';
 
 import Drawer from './src/Navigation/DrawerScreen';
 import RootStack from './src/Navigation/RootStack';
@@ -32,20 +24,6 @@ if (!firebase.apps.length) {
 	firebase.app();
 }
 export default function App() {
-	useEffect(() => {
-		const backAction = () => {
-			BackHandler.addEventListener('hardwareBackPress', () => {
-				navigation.navigate('Home Screen');
-			});
-		};
-
-		const backHandler = BackHandler.addEventListener(
-			'hardwareBackPress',
-			backAction
-		);
-
-		return () => backHandler.remove();
-	}, []);
 	const [user, setuser] = useState(false);
 	const [uid, setuid] = useState();
 

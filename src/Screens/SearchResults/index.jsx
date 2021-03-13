@@ -1,6 +1,7 @@
+import { useNavigation } from '@react-navigation/core';
 import * as firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
-import { View, Dimensions, Alert } from 'react-native';
+import { View, Dimensions, BackHandler } from 'react-native';
 import { useSelector } from 'react-redux';
 import CabTypes from '../../Components/CabTypes';
 import RouteMap from '../../Components/RouteMap';

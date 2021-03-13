@@ -32,19 +32,19 @@ const CabTypeRow = (props) => {
 		if (type.type === 'RideCX') {
 			const timeCost = 6;
 			const distCost = 6;
-			const surge = 1.5;
+			const surge = 1.25;
 			return calculateFare(tripParam, timeCost, distCost, surge);
 		}
 		if (type.type === 'Comfort') {
 			const timeCost = 6;
 			const distCost = 8;
-			const surge = 2;
+			const surge = 1.75;
 			return calculateFare(tripParam, timeCost, distCost, surge);
 		}
 		if (type.type === 'RideCXL') {
 			const timeCost = 6;
 			const distCost = 10;
-			const surge = 2.25;
+			const surge = 2;
 			return calculateFare(tripParam, timeCost, distCost, surge);
 		}
 	};
