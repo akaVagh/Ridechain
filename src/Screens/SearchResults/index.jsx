@@ -9,8 +9,11 @@ const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
 const SearchResults = (props) => {
 	const uid = useSelector((state) => state.user.uid);
+	const userData = useSelector((state) => state.user.userData);
+	console.log(`userData`, userData);
 	const origin = useSelector((state) => state.api.origin);
 	const destination = useSelector((state) => state.api.destination);
+	const place = useSelector((state) => state.api.place);
 	const rideFare = useSelector((state) => state.api.rideFare);
 	const typeState = useState(null);
 	const onSubmit = async () => {
@@ -25,7 +28,10 @@ const SearchResults = (props) => {
 				.doc(uid)
 				.set({
 					userId: uid,
+					userData: userData,
 					CabType: type,
+					originName: place.originName,
+					destinationName: place.destinationName,
 					origin: origin,
 					destination: destination,
 					TotalFare: rideFare,

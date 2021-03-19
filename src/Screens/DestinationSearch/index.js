@@ -136,6 +136,8 @@ const DestinationSearch = () => {
 										dispatch(
 											apiActions.setPlaceid(
 												item.place_id,
+												item.structured_formatting
+													.main_text,
 												'origin'
 											)
 										);
@@ -205,6 +207,8 @@ const DestinationSearch = () => {
 										dispatch(
 											apiActions.setPlaceid(
 												item.place_id,
+												item.structured_formatting
+													.main_text,
 												'destination'
 											)
 										);

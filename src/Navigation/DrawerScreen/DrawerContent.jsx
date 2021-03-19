@@ -5,6 +5,7 @@ import { useTheme, Avatar, Title, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import firebase from 'firebase';
 const DrawerContent = (props) => {
 	const userData = useSelector((state) => state.user.userData);
 
