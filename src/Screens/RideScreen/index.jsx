@@ -33,13 +33,7 @@ const RideScreen = (props) => {
 				<View style={{ bottom: 120 }}>
 					<Pressable
 						onPress={() => cancelRide()}
-						style={{
-							padding: 10,
-							marginHorizontal: 10,
-							backgroundColor: 'black',
-							alignItems: 'center',
-							//bottom: 170,
-						}}
+						style={styles.cancelBtn}
 					>
 						<Text
 							style={{

@@ -27,8 +27,8 @@ const SearchResults = (props) => {
 				.collection('orders')
 				.doc(uid)
 				.set({
-					userId: uid,
-					userData: userData,
+					riderId: uid,
+					riderData: userData,
 					CabType: type,
 					originName: place.originName,
 					destinationName: place.destinationName,
