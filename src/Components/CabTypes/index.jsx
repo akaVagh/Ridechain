@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import CabTypeRow from '../CabTypeRow';
 import typesData from '../../assets/data/types';
+import * as apiActions from '../../redux/actions/apiActions';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-const CabTypes = (props) => {
-	const confirm = () => {
-		console.warn('confirm');
-	};
+const CabTypes = ({ typeState, onSubmit }) => {
+	const navigation = useNavigation();
+	const [selectedType, setSelectedType] = typeState;
 	return (
 		<View>
 			{typesData.map((type) => (
-				<CabTypeRow type={type} key={type.id} />
+				<CabTypeRow
+					type={type}
+					key={type.id}
+					isSelected={type.type === selectedType}
+					onPress={() => {
+						setSelectedType(type.type);
+					}}
+					//setSelectedFare={setSelectedFare}
+				/>
 			))}
 			<Pressable
-				onPress={confirm}
+				onPress={() => {
+					onSubmit();
+					navigation.navigate('Ride Screen');
+				}}
 				style={{
 					padding: 10,
 					margin: 10,

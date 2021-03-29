@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
-
 export const getOrigin = (placeid) => {
 	return (dispatch) => {
 		return axios
@@ -19,8 +19,7 @@ export const getOrigin = (placeid) => {
 			});
 	};
 };
-
-export const getDestination = (placeid) => {
+export const getDestination = (placeid, op) => {
 	return (dispatch) => {
 		return axios
 			.get(
@@ -31,6 +30,11 @@ export const getDestination = (placeid) => {
 					type: actionTypes.GET_DESTINATION,
 					destination: response.data.result.geometry.location,
 				});
+				getDistanceDuration(
+					dispatch,
+					op,
+					response.data.result.geometry.location
+				);
 			})
 			.catch((error) => {
 				console.log('getDestination error', error);
@@ -74,29 +78,24 @@ export const getDestinationPediction = (input) => {
 	};
 };
 
-export const getDistanceDuration = (placeid, op, dp) => {
-	// console.log('placeid----------------', placeid);
-	console.log('op-----', op);
-	console.log('dp-----', dp);
-	return (dispatch) => {
-		return axios
-			.get(
-				`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${op.latitude},${op.longitude}&destinations=${dp.latitude},${dp.longitude}&key=${GOOGLE_API}
+export const getDistanceDuration = async (dispatch, op, dp) => {
+	return axios
+		.get(
+			`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${op.latitude},${op.longitude}&destinations=${dp.lat},${dp.lng}&key=${GOOGLE_API}
 				`
-			)
-			.then((response) => {
-				dispatch({
-					type: actionTypes.GET_DISTANCE_DURATION,
-					distance: response.data.rows[0].elements[0].distance.value,
-					distText: response.data.rows[0].elements[0].distance.text,
-					duration: response.data.rows[0].elements[0].duration.value,
-					durText: response.data.rows[0].elements[0].duration.text,
-				});
-			})
-			.catch((error) => {
-				console.log('getDistanceDuration error', error);
+		)
+		.then((response) => {
+			dispatch({
+				type: actionTypes.GET_DISTANCE_DURATION,
+				distance: response.data.rows[0].elements[0].distance.value,
+				distText: response.data.rows[0].elements[0].distance.text,
+				duration: response.data.rows[0].elements[0].duration.value,
+				durText: response.data.rows[0].elements[0].duration.text,
 			});
-	};
+		})
+		.catch((error) => {
+			console.log('getDistanceDuration error', error);
+		});
 };
 // export const getDistanceDuration = (placeid, op, dp) => {
 // 	console.log('placeid----------------', placeid);
@@ -120,17 +119,19 @@ export const getDistanceDuration = (placeid, op, dp) => {
 // 	};
 // };
 
-export const setPlaceid = (id, flag) => {
+export const setPlaceid = (id, name, flag) => {
 	if (flag === 'origin') {
 		return {
-			type: actionTypes.SET_ORIGIN_PLACE_ID,
+			type: actionTypes.SET_ORIGIN_PLACE_DATA,
 			originPlaceid: id,
+			originName: name,
 		};
 	}
 	if (flag === 'destination') {
 		return {
-			type: actionTypes.SET_DESTIN_PLACE_ID,
+			type: actionTypes.SET_DESTIN_PLACE_DATA,
 			destinationPlaceid: id,
+			destinationName: name,
 		};
 	}
 };
@@ -145,5 +146,11 @@ export const setDestination = (location) => {
 	return {
 		type: actionTypes.GET_DESTINATION,
 		destination: location,
+	};
+};
+export const setRideFare = (fare) => {
+	return {
+		type: actionTypes.SET_RIDE_FARE,
+		fare: fare,
 	};
 };

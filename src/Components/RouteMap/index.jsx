@@ -2,7 +2,6 @@ import React from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useSelector } from 'react-redux';
-import DestinationSearch from '../../Screens/DestinationSearch';
 
 const RouteMap = (props) => {
 	const origin = useSelector((state) => state.api.origin);

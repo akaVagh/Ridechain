@@ -1,43 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import styles from './styles';
-import {
-	useTheme,
-	Avatar,
-	Title,
-	Caption,
-	Paragraph,
-	Drawer,
-	Text,
-	TouchableRipple,
-	Switch,
-} from 'react-native-paper';
+import { useTheme, Avatar, Title, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
-import firebase from 'firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import * as userActions from '../../redux/actions/userActions';
+import firebase from 'firebase';
 const DrawerContent = (props) => {
-	const paperTheme = useTheme();
-	const dispatch = useDispatch();
-	const uid = useSelector((state) => state.user.uid);
 	const userData = useSelector((state) => state.user.userData);
-	const getUser = async () => {
-		await firebase
-			.firestore()
-			.collection('riders')
-			.doc(uid)
-			.get()
-			.then((userSnapshot) => {
-				if (userSnapshot.exists) {
-					//console.log('userSnapshot.data()----', userSnapshot.data());
-					dispatch(userActions.setUserData(userSnapshot.data()));
-				}
-			});
-	};
-	useEffect(() => {
-		getUser();
-	}, []);
+
 	return (
 		<View style={{ flex: 1 }}>
 			<DrawerContentScrollView {...props}>

@@ -5,8 +5,9 @@ const initialState = {
 	destination: { latitude: '', longitude: '' },
 	originPredictions: [],
 	destinationPredictions: [],
-	placeid: {},
+	place: {},
 	tripParam: {},
+	rideFare: null,
 };
 
 const apiReducer = (state = initialState, action) => {
@@ -39,20 +40,22 @@ const apiReducer = (state = initialState, action) => {
 				...state,
 				destinationPredictions: action.destinationPredictions,
 			};
-		case actionTypes.SET_ORIGIN_PLACE_ID:
+		case actionTypes.SET_ORIGIN_PLACE_DATA:
 			return {
 				...state,
-				placeid: {
-					...state.placeid,
+				place: {
+					...state.place,
 					originPlaceid: action.originPlaceid,
+					originName: action.originName,
 				},
 			};
-		case actionTypes.SET_DESTIN_PLACE_ID:
+		case actionTypes.SET_DESTIN_PLACE_DATA:
 			return {
 				...state,
-				placeid: {
-					...state.placeid,
+				place: {
+					...state.place,
 					destinationPlaceid: action.destinationPlaceid,
+					destinationName: action.destinationName,
 				},
 			};
 		case actionTypes.GET_DISTANCE_DURATION:
@@ -65,6 +68,11 @@ const apiReducer = (state = initialState, action) => {
 					duration: action.duration,
 					durText: action.durText,
 				},
+			};
+		case actionTypes.SET_RIDE_FARE:
+			return {
+				...state,
+				rideFare: action.fare,
 			};
 		default:
 			return state;

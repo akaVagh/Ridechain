@@ -1,14 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import {
-	StyleSheet,
-	Text,
-	View,
-	SafeAreaView,
-	ActivityIndicator,
-	LogBox,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, LogBox } from 'react-native';
 
 import Drawer from './src/Navigation/DrawerScreen';
 import RootStack from './src/Navigation/RootStack';
