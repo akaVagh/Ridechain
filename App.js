@@ -46,9 +46,9 @@ export default function App() {
 			<>
 				<SafeAreaView style={styles.droidSafeArea}>
 					<StatusBar
-						style='auto'
+						style='light'
 						translucent={true}
-						backgroundColor={'transparent'}
+						backgroundColor='black'
 					/>
 					{user ? <Drawer uid={uid} /> : <RootStack />}
 				</SafeAreaView>
