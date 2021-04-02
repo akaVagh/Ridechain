@@ -10,6 +10,7 @@ import { firebaseConfig } from './src/Components/firebase/config';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import _ from 'lodash';
+import WaitingScreen from './src/Screens/WaitingScreen';
 
 LogBox.ignoreLogs(['Setting a timer']);
 const _console = _.clone(console);
@@ -51,6 +52,7 @@ export default function App() {
 						backgroundColor='black'
 					/>
 					{user ? <Drawer uid={uid} /> : <RootStack />}
+					{/* <WaitingScreen /> */}
 				</SafeAreaView>
 			</>
 		</Provider>

@@ -8,6 +8,7 @@ const initialState = {
 	place: {},
 	tripParam: {},
 	rideFare: null,
+	currentRide: null,
 };
 
 const apiReducer = (state = initialState, action) => {
@@ -73,6 +74,11 @@ const apiReducer = (state = initialState, action) => {
 			return {
 				...state,
 				rideFare: action.fare,
+			};
+		case actionTypes.SET_CURRENT_RIDE:
+			return {
+				...state,
+				currentRide: action.ride,
 			};
 		default:
 			return state;

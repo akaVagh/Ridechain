@@ -25,7 +25,7 @@ const CabTypes = ({ typeState, onSubmit }) => {
 			<Pressable
 				onPress={() => {
 					onSubmit();
-					navigation.navigate('Ride Screen');
+					navigation.navigate('Waiting Screen');
 				}}
 				style={{
 					padding: 10,
