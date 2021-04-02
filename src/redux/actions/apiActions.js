@@ -154,3 +154,9 @@ export const setRideFare = (fare) => {
 		fare: fare,
 	};
 };
+export const setCurrentRide = (ride) => {
+	return {
+		type: actionTypes.SET_CURRENT_RIDE,
+		ride: ride,
+	};
+};

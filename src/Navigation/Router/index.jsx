@@ -5,6 +5,7 @@ import DestinationSearch from '../../Screens/DestinationSearch';
 import SearchResults from '../../Screens/SearchResults';
 import HomeScreen from '../../Screens/HomeScreen';
 import RideScreen from '../../Screens/RideScreen';
+import WaitingScreen from '../../Screens/WaitingScreen';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,11 @@ const Router = (props) => {
 			<Stack.Screen
 				name={'Ride Screen'}
 				component={RideScreen}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name={'Waiting Screen'}
+				component={WaitingScreen}
 				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>
