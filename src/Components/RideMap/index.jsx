@@ -11,7 +11,6 @@ import { useNavigation } from '@react-navigation/core';
 const GOOGLE_MAPS_APIKEY = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 
 const RideMap = (props) => {
-	const dispatch = useDispatch();
 	const navigation = useNavigation();
 
 	const [region, setRegion] = useState({

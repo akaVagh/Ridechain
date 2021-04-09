@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Animated, Pressable } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,12 +6,13 @@ import { useNavigation } from '@react-navigation/native';
 import * as apiActions from '../../redux/actions/apiActions';
 import styles from './styles';
 import * as firebase from 'firebase';
+import RideMap from '../../Components/RideMap';
 
 const WaitingScreen = (props) => {
 	const uid = useSelector((state) => state.user.uid);
 	const navigation = useNavigation();
 	const dispatch = useDispatch();
-
+	const currentRide = useSelector((state) => state.api.currentRide);
 	useEffect(() => {
 		var timeLimit = 0;
 		const interval = setInterval(() => {
@@ -27,6 +28,7 @@ const WaitingScreen = (props) => {
 						const data = doc.data();
 						console.log(`timeLimit`, timeLimit);
 						dispatch(apiActions.setCurrentRide(data));
+
 						clearInterval(interval);
 						navigation.navigate('Ride Screen');
 					} else {

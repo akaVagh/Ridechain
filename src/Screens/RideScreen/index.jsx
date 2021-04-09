@@ -4,7 +4,6 @@ import { View, Text, StatusBar, Pressable } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import RideMap from '../../Components/RideMap';
-import styles from './styles';
 
 const RideScreen = (props) => {
 	return (

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 	},
 	drawerBtn: {
 		position: 'absolute',
-		top: '5%',
+		top: 25,
 		right: '5%',
 		backgroundColor: '#fff',
 		borderRadius: 30,
