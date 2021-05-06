@@ -79,19 +79,6 @@ const DrawerContent = (props) => {
 								props.navigation.navigate('Setting');
 							}}
 						/>
-						<DrawerItem
-							icon={({ color, size }) => (
-								<Icon
-									name='account-check-outline'
-									color={color}
-									size={size}
-								/>
-							)}
-							label='Support'
-							onPress={() => {
-								props.navigation.navigate('SupportScreen');
-							}}
-						/>
 					</Drawer.Section>
 					{/* <Drawer.Section title='Preferences'>
                         <TouchableRipple
