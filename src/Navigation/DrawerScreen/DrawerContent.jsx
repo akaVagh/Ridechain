@@ -79,6 +79,15 @@ const DrawerContent = (props) => {
 								props.navigation.navigate('Setting');
 							}}
 						/>
+						<DrawerItem
+							icon={({ color, size }) => (
+								<Icon name='car' color={color} size={size} />
+							)}
+							label='Ride'
+							onPress={() => {
+								props.navigation.navigate('Ride Screen');
+							}}
+						/>
 					</Drawer.Section>
 					{/* <Drawer.Section title='Preferences'>
                         <TouchableRipple
