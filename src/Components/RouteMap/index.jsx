@@ -2,11 +2,10 @@ import React from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useSelector } from 'react-redux';
-
+import GOOGLE_MAPS_APIKEY from '../GoogleApi';
 const RouteMap = (props) => {
 	const origin = useSelector((state) => state.api.origin);
 	const destination = useSelector((state) => state.api.destination);
-	const GOOGLE_MAPS_APIKEY = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
 	const originRegion = {
 		latitude: origin.latitude,
 		longitude: origin.longitude,

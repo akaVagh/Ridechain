@@ -7,8 +7,7 @@ import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-
-const GOOGLE_MAPS_APIKEY = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
+import GOOGLE_MAPS_APIKEY from '../GoogleApi';
 
 const RideMap = (props) => {
 	const navigation = useNavigation();

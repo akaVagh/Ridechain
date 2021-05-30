@@ -1,12 +1,13 @@
 import * as actionTypes from '../actionTypes';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-const GOOGLE_API = 'AIzaSyAFcNY6a_668CtawRFZsw4xizaTX2ttt0Q';
+import GOOGLE_MAPS_APIKEY from '../../Components/GoogleApi';
+
 export const getOrigin = (placeid) => {
 	return (dispatch) => {
 		return axios
 			.get(
-				`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${GOOGLE_API}`
+				`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${GOOGLE_MAPS_APIKEY}`
 			)
 			.then((response) => {
 				dispatch({
@@ -23,7 +24,7 @@ export const getDestination = (placeid, op) => {
 	return (dispatch) => {
 		return axios
 			.get(
-				`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${GOOGLE_API}`
+				`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeid}&key=${GOOGLE_MAPS_APIKEY}`
 			)
 			.then((response) => {
 				dispatch({
@@ -46,7 +47,7 @@ export const getOriginPediction = (input) => {
 	return (dispatch) => {
 		return axios
 			.get(
-				`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${GOOGLE_API}`
+				`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${GOOGLE_MAPS_APIKEY}`
 			)
 			.then((response) => {
 				dispatch({
@@ -64,7 +65,7 @@ export const getDestinationPediction = (input) => {
 	return (dispatch) => {
 		return axios
 			.get(
-				`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${GOOGLE_API}`
+				`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${GOOGLE_MAPS_APIKEY}`
 			)
 			.then((response) => {
 				dispatch({
@@ -81,7 +82,7 @@ export const getDestinationPediction = (input) => {
 export const getDistanceDuration = async (dispatch, op, dp) => {
 	return axios
 		.get(
-			`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${op.latitude},${op.longitude}&destinations=${dp.lat},${dp.lng}&key=${GOOGLE_API}
+			`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${op.latitude},${op.longitude}&destinations=${dp.lat},${dp.lng}&key=${GOOGLE_MAPS_APIKEY}
 				`
 		)
 		.then((response) => {
@@ -104,7 +105,7 @@ export const getDistanceDuration = async (dispatch, op, dp) => {
 // 	return (dispatch) => {
 // 		return axios
 // 			.get(
-// 				`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=place_id:${placeid.originPlaceid}&destinations=place_id:${placeid.destinationPlaceid}&key=${GOOGLE_API}
+// 				`https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=place_id:${placeid.originPlaceid}&destinations=place_id:${placeid.destinationPlaceid}&key=${GOOGLE_MAPS_APIKEY}
 // 				`
 // 			)
 // 			.then((response) => {
