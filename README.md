@@ -1,4 +1,4 @@
-Here are pictures of working App.
+<h2>Here are pictures of working App.</h2>
 
 1. Splash screen and login screen <br/><br/>
 <img src="images/1.png" width="270" height="570"> &emsp; <img src="images/2.png" width="270" height="570"> <br/><br/>
